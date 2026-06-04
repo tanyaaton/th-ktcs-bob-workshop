@@ -492,34 +492,27 @@
         <h1 class="brand-title">Payment App Modernization Walkthrough</h1>
       </div>
     </div>
-    <div class="topbar__meta">
-      <a href="/" style="padding: 0.5rem 1rem; background: #0f62fe; color: white; border-radius: 4px; text-decoration: none; font-weight: 500;">Home</a>
-    </div>
   </header>
 
   <div class="layout">
     <aside class="sidebar" id="sidebar">
       <div class="sidebar__title">Lab Sections</div>
       <nav class="sidebar__nav" aria-label="Table of contents">
-        <a class="sidebar__link active" href="#overview">
+        <a class="sidebar__link active" href="#getting-started">
           <span class="sidebar__num">01</span>
-          <span>What You'll Experience</span>
+          <span>Getting Started</span>
         </a>
-        <a class="sidebar__link" href="#download-materials">
-          <span class="sidebar__num">02</span>
-          <span>Download Repository Materials</span>
-        </a>
-        <a class="sidebar__link" href="#prerequisites">
-          <span class="sidebar__num">03</span>
-          <span>Prerequisites</span>
-        </a>
+        <a class="sidebar__sublink" href="#what-youll-experience">1.1 What You'll Experience</a>
+        <a class="sidebar__sublink" href="#download-materials">1.2 Download Repository Materials</a>
+        <a class="sidebar__sublink" href="#prerequisites">1.3 Prerequisites</a>
         <a class="sidebar__link" href="#lab-use-cases">
-          <span class="sidebar__num">04</span>
+          <span class="sidebar__num">02</span>
           <span>Lab Use Cases</span>
         </a>
-        <a class="sidebar__sublink" href="#code-understanding">4.1 Code Understanding</a>
-        <a class="sidebar__sublink" href="#code-documentation">4.2 Code Documentation</a>
-        <a class="sidebar__sublink" href="#java-migration">4.3 Java 11 to Java 17 Modernization</a>
+        <a class="sidebar__sublink" href="#code-understanding-documentation">2.1 Code Understanding & Documentation</a>
+        <a class="sidebar__sublink" href="#java-migration">2.2 Java 11 to Java 17 Modernization</a>
+        <a class="sidebar__sublink" href="#create-frontend">2.3 Create Frontend to Showcase</a>
+        <a class="sidebar__sublink" href="#end-to-end-testing">2.4 Let Bob Test End-to-End</a>
       </nav>
     </aside>
 
@@ -529,23 +522,23 @@
       <section class="hero section" id="overview">
         <div class="section-header">
           <div class="section-kicker">Overview</div>
-          <h2>What You'll Experience</h2>
+          <h2 id="what-youll-experience">What You'll Experience</h2>
           <p class="section-lead">
-            This walkthrough demonstrates Bob's capabilities for Java modernization using the <strong>payment-app</strong> sample application. You'll learn how to understand an unfamiliar codebase, chat with the repository in natural language, generate useful documentation, and execute a structured upgrade from Java 11 to Java 17.
+            This walkthrough demonstrates Bob's capabilities for Java modernization using the <strong>payment-app</strong> sample application. You'll learn how to understand an unfamiliar codebase, generate comprehensive documentation, modernize from Java 11 to Java 17, create a frontend showcase, and execute end-to-end testing.
           </p>
         </div>
         <div class="grid grid--3">
           <article class="feature-card">
-            <h3>Code Understanding</h3>
-            <p>Use Ask mode to inspect the payment application, summarize business purpose, visualize the architecture, and explore database usage, APIs, frontend behavior, observability, and runtime steps through guided prompts.</p>
+            <h3>Code Understanding & Documentation</h3>
+            <p>Use Ask mode to inspect the payment application and Orchestrator mode to generate comprehensive documentation including business purpose, technology stack, architecture, and setup instructions.</p>
           </article>
           <article class="feature-card">
-            <h3>Code documentation</h3>
-            <p>Use Orchestrator mode to generate comprehensive documentation including business purpose, technology stack, features, architecture, project structure, and setup instructions.</p>
+            <h3>Java 11 to Java 17 Modernization</h3>
+            <p>Use Bob to create a Java 11 to Java 17 modernization plan and execute the modernization workflow with detailed analysis and implementation steps.</p>
           </article>
           <article class="feature-card">
-            <h3>Java modernization</h3>
-            <p>Use Bob to create a Java 11 to Java 17 modernization plan and optionally execute the modernization workflow.</p>
+            <h3>Frontend Creation & Testing</h3>
+            <p>Create a frontend showcase using HTML and vanilla JavaScript to demonstrate the application, then let Bob create and execute comprehensive end-to-end test plans.</p>
           </article>
         </div>
       </section>
@@ -554,7 +547,7 @@
       <section class="section" id="download-materials">
         <div class="section-header">
           <div class="section-kicker">Setup</div>
-          <h2>Download Repository Materials</h2>
+          <h2 id="download-repository-materials">Download Repository Materials</h2>
           <p class="section-lead">
             Download the repository bundle that contains the <strong>payment-app</strong> codebase and the Java/Maven setup scripts.
           </p>
@@ -598,14 +591,10 @@
             </ol>
           </div>
         </div>
-      </section>
-
-      <!-- SECTION 3: PREREQUISITES -->
-      <section class="section" id="prerequisites">
-        <div class="section-header">
-          <div class="section-kicker">Preparation</div>
-          <h2>Prerequisites</h2>
-          <p class="section-lead">
+        <!-- Prerequisites Subsection -->
+        <div style="margin-top: 3rem;">
+          <h3 id="prerequisites" style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Prerequisites</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
             Before starting the lab, make sure your workstation has Java, Maven, and Bob IDE ready. The included shell and batch scripts simplify the installation and user-level environment setup.
           </p>
         </div>
@@ -624,7 +613,7 @@
           </details>
 
           <details class="accordion">
-            <summary>Install Java and Maven using the bash scripts</summary>
+            <summary>Install Java and Maven using the helper scripts</summary>
             <div class="accordion__body">
               <p>After downloading the repository materials, run the matching helper script for your operating system. These scripts are located in the <code>java-maven-install-shell-scripts/</code> folder.</p>
 
@@ -673,7 +662,7 @@ mvn -version</pre>
         </div>
       </section>
 
-      <!-- SECTION 4: LAB USE CASES -->
+      <!-- SECTION 2: LAB USE CASES -->
       <section class="section" id="lab-use-cases">
         <div class="section-header">
           <div class="section-kicker">Hands-on Lab</div>
@@ -683,11 +672,11 @@ mvn -version</pre>
           </p>
         </div>
 
-        <!-- 4.1 CODE UNDERSTANDING -->
-        <article class="subsection" id="code-understanding">
+        <!-- 2.1 CODE UNDERSTANDING & DOCUMENTATION -->
+        <article class="subsection" id="code-understanding-documentation">
           <div class="subsection__header">
-            <h3>4.1 Code Understanding</h3>
-            <span class="badge">Ask mode</span>
+            <h3>2.1 Code Understanding & Documentation</h3>
+            <span class="badge">Ask mode & Orchestrator mode</span>
           </div>
 
           <div class="callout callout--info" style="margin-top: 1rem;">
@@ -840,18 +829,13 @@ mvn -version</pre>
               <strong>Impact:</strong> 90%+ reduction in onboarding time • Accelerated modernization planning • Improved team productivity
             </div>
           </div>
-        </article>
-      </section>
-
-      <!-- SECTION: CODE DOCUMENTATION -->
-      <section class="section" id="code-documentation">
-        <div class="section-header">
-          <div class="section-kicker">Use Case 4.2</div>
-          <h2>4.2 Code Documentation</h2>
-          <p class="section-lead">
-            In this section, you will use Orchestrator mode to generate a practical markdown document for the payment application. This shows how Bob can turn a working codebase into onboarding-ready technical documentation without requiring a manual write-up from scratch.
-          </p>
-        </div>
+          <!-- CODE DOCUMENTATION PART -->
+          <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border-subtle);">
+            <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">Code Documentation</h4>
+            <p style="font-size:13px; color:var(--text-secondary); margin:.75rem 0;">
+              In this part, you will use Orchestrator mode to generate a practical markdown document for the payment application. This shows how Bob can turn a working codebase into onboarding-ready technical documentation without requiring a manual write-up from scratch.
+            </p>
+          </div>
 
         <div class="callout callout--success">
           <div class="callout__label">Recommended mode</div>
@@ -932,14 +916,16 @@ mvn -version</pre>
           <div class="business-value-summary">
             <strong>Impact:</strong> 95%+ reduction in documentation time • Always current • Improved knowledge sharing • Better onboarding experience
           </div>
-        </div>
-      </section>
+          </div>
+        </article>
 
-      <!-- SECTION: JAVA MIGRATION -->
-      <section class="section" id="java-migration">
-        <div class="section-header">
-          <div class="section-kicker">Use Case 4.3</div>
-          <h2>4.3 Java 11 to Java 17 Modernization</h2>
+      <!-- 2.2 JAVA MIGRATION -->
+      <article class="subsection" id="java-migration">
+        <div class="subsection__header">
+          <h3>2.2 Java 11 to Java 17 Modernization</h3>
+          <span class="badge">Code mode</span>
+        </div>
+        <div style="margin-top: 1rem;">
           <p class="section-lead">
             In this section, you'll use Bob to create a structured modernization plan and then execute the modernization work in a controlled sequence.
           </p>
@@ -1420,7 +1406,338 @@ mvn spring-boot:run</code></pre>
           </div>
           <p style="margin: 0.75rem 0 0; font-style: italic;">Or just ask Bob to run it :)</p>
         </div>
-      </section>
+      </article>
+
+      <!-- 2.3 CREATE FRONTEND TO SHOWCASE -->
+      <article class="subsection" id="create-frontend">
+        <div class="subsection__header">
+          <h3>2.3 Create Frontend to Showcase</h3>
+          <span class="badge">Code mode</span>
+        </div>
+
+        <div style="margin-top: 1rem;">
+          <p style="font-size:13px; color:var(--text-secondary); margin:.75rem 0;">
+            In this section, you'll ask Bob to create a modern frontend interface to showcase the payment application. This demonstrates Bob's ability to generate complete, production-ready frontend code with consistent styling and best practices.
+          </p>
+          <p style="font-size:13px; color:var(--text-secondary); margin:.75rem 0;">
+            <strong>Fallback Plan:</strong> If Bob encounters any issues or cannot complete the frontend creation, you can manually create a simple HTML + vanilla JavaScript interface following the guidelines below.
+          </p>
+        </div>
+
+        <div class="prompt-card">
+          <div class="prompt-card__header">
+            <span class="prompt-card__title">Frontend Creation Prompt</span>
+            <button class="copy-btn" data-copy-target="prompt-frontend">Copy</button>
+          </div>
+          <pre class="prompt-body" id="prompt-frontend">Create a modern, responsive frontend interface for the payment application with the following requirements:
+
+1. Technology Stack:
+   - HTML5 with semantic markup
+   - Vanilla JavaScript (no frameworks)
+   - CSS3 with modern features (Grid, Flexbox, CSS Variables)
+
+2. Styling Guidelines:
+   - Use Carbon Design System color palette and spacing
+   - Implement responsive design (mobile-first approach)
+   - Include smooth transitions and hover effects
+   - Ensure accessibility (ARIA labels, keyboard navigation)
+
+3. Features to Implement:
+   - Payment form with validation
+   - Transaction history display
+   - Real-time status updates
+   - Error handling and user feedback
+   - Loading states and animations
+
+4. Code Quality:
+   - Clean, well-commented code
+   - Consistent naming conventions
+   - Modular structure
+   - Cross-browser compatibility
+
+5. File Structure:
+   payment-app-frontend/
+   ├── index.html
+   ├── styles.css
+   ├── app.js
+   └── README.md
+
+Create this frontend in a new folder called 'payment-app-frontend' alongside the existing payment-app directory.</pre>
+        </div>
+
+        <div class="callout callout--warning" style="margin-top: 1.5rem;">
+          <div class="callout__label">⚠️ Fallback Plan</div>
+          <h4 style="margin-top: 0.5rem; margin-bottom: 0.75rem; color: var(--text);">Manual Frontend Creation</h4>
+          <p style="margin-bottom: 0.75rem;">If Bob cannot complete the frontend creation, follow these steps to create a basic interface manually:</p>
+          
+          <div style="margin-top: 1rem;">
+            <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 0.5rem;">Step 1: Create HTML Structure</h5>
+            <pre style="background: var(--bg-subtle); padding: 1rem; border-radius: 4px; overflow-x: auto;"><code><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Application</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Payment Application</h1>
+    </header>
+    <main>
+      <!-- Payment form and transaction history go here -->
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html></code></pre>
+          </div>
+
+          <div style="margin-top: 1rem;">
+            <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 0.5rem;">Step 2: Apply Consistent Styling</h5>
+            <p style="font-size: 13px; margin-bottom: 0.5rem;">Use these CSS variables for consistency with the lab guide:</p>
+            <pre style="background: var(--bg-subtle); padding: 1rem; border-radius: 4px; overflow-x: auto;"><code>:root {
+  --primary: #0f62fe;
+  --primary-hover: #0353e9;
+  --text: #161616;
+  --text-secondary: #525252;
+  --bg: #ffffff;
+  --bg-subtle: #f4f4f4;
+  --border: #e0e0e0;
+  --border-subtle: #e8e8e8;
+  --success: #24a148;
+  --error: #da1e28;
+  --warning: #f1c21b;
+}</code></pre>
+          </div>
+
+          <div style="margin-top: 1rem;">
+            <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 0.5rem;">Step 3: Implement Core JavaScript</h5>
+            <p style="font-size: 13px; margin-bottom: 0.5rem;">Create basic API calls and form handling:</p>
+            <pre style="background: var(--bg-subtle); padding: 1rem; border-radius: 4px; overflow-x: auto;"><code>// API base URL
+const API_BASE = 'http://localhost:8080/api';
+
+// Submit payment
+async function submitPayment(paymentData) {
+  const response = await fetch(`${API_BASE}/payments/authorize`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(paymentData)
+  });
+  return response.json();
+}
+
+// Fetch transaction history
+async function getTransactions() {
+  const response = await fetch(`${API_BASE}/payments/history`);
+  return response.json();
+}</code></pre>
+          </div>
+        </div>
+
+        <div class="output-panel" style="margin-top: 1.5rem;">
+          <h4>Expected Outcome</h4>
+          <ul>
+            <li>Complete frontend application in <code>payment-app-frontend/</code> folder</li>
+            <li>Responsive design that works on mobile, tablet, and desktop</li>
+            <li>Consistent styling matching the Carbon Design System</li>
+            <li>Functional payment form with validation</li>
+            <li>Transaction history display with real-time updates</li>
+            <li>Clean, well-documented code</li>
+          </ul>
+        </div>
+
+        <!-- Business Value 2.3 -->
+        <div class="business-value-section">
+          <h4 class="business-value-title">Business Value</h4>
+          <div class="business-value-grid">
+            <div class="business-value-card business-value-card--traditional">
+              <div class="business-value-card__header">
+                <span class="business-value-icon"></span>
+                <h5>Traditional Approach</h5>
+              </div>
+              <ul class="business-value-list">
+                <li>Manual frontend development from scratch</li>
+                <li>Design mockups and approval cycles</li>
+                <li>Component library selection and setup</li>
+                <li>Responsive design implementation</li>
+                <li><strong>Time investment:</strong> Days to weeks for complete frontend</li>
+                <li><strong>Risk:</strong> Inconsistent styling, accessibility issues, browser compatibility problems</li>
+              </ul>
+            </div>
+            <div class="business-value-card business-value-card--bob">
+              <div class="business-value-card__header">
+                <span class="business-value-icon"></span>
+                <h5>With Bob</h5>
+              </div>
+              <ul class="business-value-list">
+                <li>Automated frontend generation with best practices</li>
+                <li>Consistent design system implementation</li>
+                <li>Built-in accessibility and responsiveness</li>
+                <li>Production-ready code structure</li>
+                <li><strong>Time investment:</strong> Minutes to hours</li>
+                <li><strong>Benefit:</strong> Rapid prototyping, consistent quality, reduced development time</li>
+              </ul>
+            </div>
+          </div>
+          <div class="business-value-summary">
+            <strong>Impact:</strong> 85%+ reduction in frontend development time • Consistent design patterns • Improved accessibility • Faster time-to-market
+          </div>
+        </div>
+      </article>
+
+      <!-- 2.4 LET BOB TEST END-TO-END -->
+      <article class="subsection" id="end-to-end-testing">
+        <div class="subsection__header">
+          <h3>2.4 Let Bob Test End-to-End</h3>
+          <span class="badge">Orchestrator mode</span>
+        </div>
+
+        <div style="margin-top: 1rem;">
+          <p style="font-size:13px; color:var(--text-secondary); margin:.75rem 0;">
+            In this final section, you'll ask Bob to create and execute a comprehensive end-to-end test plan for the payment application. This demonstrates Bob's ability to think systematically about testing, identify edge cases, and validate the entire application stack.
+          </p>
+          <p style="font-size:13px; color:var(--text-secondary); margin:.75rem 0;">
+            Bob will develop a step-by-step test plan covering functional testing, integration testing, error handling, and performance validation.
+          </p>
+        </div>
+
+        <div class="callout callout--success" style="margin-top: 1rem;">
+          <div class="callout__label">💡 Recommended Mode</div>
+          <p style="margin: 0.5rem 0 0; font-weight: 500;">Switch to <strong>Orchestrator mode</strong> so Bob can systematically plan, execute, and document the testing process.</p>
+        </div>
+
+        <div class="prompt-card" style="margin-top: 1.5rem;">
+          <div class="prompt-card__header">
+            <span class="prompt-card__title">Test Plan Creation Prompt</span>
+            <button class="copy-btn" data-copy-target="prompt-test-plan">Copy</button>
+          </div>
+          <pre class="prompt-body" id="prompt-test-plan">Create a comprehensive end-to-end test plan for the payment application and execute it step by step.
+
+The test plan should cover:
+
+1. **Functional Testing**
+   - Payment authorization flow
+   - Payment capture flow
+   - Payment refund flow
+   - Transaction history retrieval
+   - Admin endpoints (health, metrics, cache)
+
+2. **Integration Testing**
+   - Frontend to backend communication
+   - Database persistence verification
+   - Cache behavior validation
+   - API response format verification
+
+3. **Error Handling**
+   - Invalid payment data
+   - Missing required fields
+   - Duplicate transaction IDs
+   - Network timeout scenarios
+   - Database connection failures
+
+4. **Edge Cases**
+   - Concurrent payment requests
+   - Large transaction amounts
+   - Special characters in input fields
+   - Boundary value testing
+
+5. **Performance Validation**
+   - Response time measurements
+   - Cache hit/miss ratios
+   - Memory usage monitoring
+   - Concurrent user simulation
+
+For each test:
+- Provide the test steps
+- Execute the test
+- Document the actual results
+- Compare with expected results
+- Note any issues or failures
+
+Create a detailed test report as: TestReport.md</pre>
+        </div>
+
+        <div class="prompt-card" style="margin-top: 1.5rem;">
+          <div class="prompt-card__header">
+            <span class="prompt-card__title">Test Execution Prompt</span>
+            <button class="copy-btn" data-copy-target="prompt-test-exec">Copy</button>
+          </div>
+          <pre class="prompt-body" id="prompt-test-exec">Execute the test plan you created and document the results.
+
+For each test case:
+1. Set up the test environment
+2. Execute the test steps
+3. Capture the actual results
+4. Compare with expected outcomes
+5. Document any failures or unexpected behavior
+6. Suggest fixes for any issues found
+
+Provide a summary including:
+- Total tests executed
+- Tests passed
+- Tests failed
+- Critical issues found
+- Recommendations for improvements
+
+Update the TestReport.md with complete test results.</pre>
+        </div>
+
+        <div class="output-panel" style="margin-top: 1.5rem;">
+          <h4>Expected Deliverables</h4>
+          <ul>
+            <li><code>TestReport.md</code> with comprehensive test documentation</li>
+            <li>Test execution results for all test cases</li>
+            <li>Pass/fail status for each test</li>
+            <li>Screenshots or logs of test execution</li>
+            <li>List of issues found with severity ratings</li>
+            <li>Recommendations for fixes and improvements</li>
+          </ul>
+        </div>
+
+        <div class="tip-box" style="margin-top: 1.5rem;">
+          <strong>Pro Tip:</strong> Bob can also generate automated test scripts (JUnit, Selenium, etc.) based on the test plan. Ask Bob to create automated tests if you want to integrate them into your CI/CD pipeline.
+        </div>
+
+        <!-- Business Value 2.4 -->
+        <div class="business-value-section">
+          <h4 class="business-value-title">Business Value</h4>
+          <div class="business-value-grid">
+            <div class="business-value-card business-value-card--traditional">
+              <div class="business-value-card__header">
+                <span class="business-value-icon"></span>
+                <h5>Traditional Approach</h5>
+              </div>
+              <ul class="business-value-list">
+                <li>Manual test case creation</li>
+                <li>Time-consuming test execution</li>
+                <li>Inconsistent test coverage</li>
+                <li>Manual result documentation</li>
+                <li><strong>Time investment:</strong> Days to weeks for comprehensive testing</li>
+                <li><strong>Risk:</strong> Missed edge cases, incomplete coverage, human error in execution</li>
+              </ul>
+            </div>
+            <div class="business-value-card business-value-card--bob">
+              <div class="business-value-card__header">
+                <span class="business-value-icon"></span>
+                <h5>With Bob</h5>
+              </div>
+              <ul class="business-value-list">
+                <li>Automated test plan generation</li>
+                <li>Systematic test execution</li>
+                <li>Comprehensive edge case coverage</li>
+                <li>Automated result documentation</li>
+                <li><strong>Time investment:</strong> Hours for complete testing</li>
+                <li><strong>Benefit:</strong> Higher coverage, consistent execution, detailed reporting, faster feedback</li>
+              </ul>
+            </div>
+          </div>
+          <div class="business-value-summary">
+            <strong>Impact:</strong> 90%+ reduction in testing time • Improved test coverage • Consistent quality • Faster defect detection • Better documentation
+          </div>
+        </div>
+      </article>
 
     </main>
   </div>
