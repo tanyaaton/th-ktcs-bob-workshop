@@ -159,7 +159,8 @@ function PaymentForm({ onSuccess, onError, setLoading }) {
                     cardNumber: formData.cardNumber.replace(/\s/g, ''),
                     expiryDate: formData.expiryDate,
                     cvv: formData.cvv,
-                    amount: parseFloat(formData.amount)
+                    amount: parseFloat(formData.amount),
+                    currency: 'USD'
                 })
             });
 
