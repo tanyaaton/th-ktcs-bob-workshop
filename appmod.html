@@ -1466,7 +1466,42 @@ mvn spring-boot:run</code></pre>
 
         <div class="prompt-card">
           <div class="prompt-card__header">
-            <span class="prompt-card__title">Frontend Creation Prompt</span>
+            <span class="prompt-card__title">Quick Frontend Creation Prompt</span>
+            <button class="copy-btn" data-copy-target="prompt-frontend-short">Copy</button>
+          </div>
+          <pre class="prompt-body" id="prompt-frontend-short">Create a modern React-based frontend in payment-app-java17/src/main/resources/static/ with these files:
+
+1. index.html:
+   - Load React 18 and ReactDOM via CDN
+   - Include Babel Standalone for JSX transformation
+   - Link to styles.css and app.js (type="text/babel")
+   - Create root div for React app
+
+2. app.js (React Components):
+   - App component: Main container with state management, auto-refresh every 5 seconds
+   - PaymentForm: Card input with formatting (XXXX XXXX XXXX XXXX), expiry (MM/YY), CVV validation, amount input
+   - TransactionHistory: Display transactions table with Capture/Refund action buttons
+   - Include test card numbers display: Visa 4263970000005262, MasterCard 5425230000004415, Amex 374101000000608
+
+3. styles.css:
+   - Purple gradient background (#667eea to #764ba2)
+   - White cards with rounded corners and shadows
+   - Responsive design (mobile, tablet, desktop)
+   - Status badges: AUTHORIZED (blue), CAPTURED (green), DECLINED (red), REFUNDED (orange)
+   - Smooth transitions and hover effects
+
+API Integration:
+- POST /api/payments/authorize - Submit payment authorization
+- POST /api/payments/capture - Capture authorized payment
+- POST /api/payments/refund - Refund captured payment
+- GET /api/payments/history - Fetch transaction history
+
+Features: Input validation, error handling, success messages, loading states, empty states.</pre>
+        </div>
+
+        <div class="prompt-card" style="margin-top: 1rem;">
+          <div class="prompt-card__header">
+            <span class="prompt-card__title">Detailed Frontend Creation Prompt</span>
             <button class="copy-btn" data-copy-target="prompt-frontend">Copy</button>
           </div>
           <pre class="prompt-body" id="prompt-frontend">Create a modern, responsive React-based frontend for the payment application in the payment-app-java17/src/main/resources/static directory with the following requirements:
