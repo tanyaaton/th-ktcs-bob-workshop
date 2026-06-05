@@ -759,7 +759,7 @@ mvn -version</pre>
           </div>
 
           <h4 style="margin-top: 2rem; font-size:14px; font-weight:600;">Run the application</h4>
-          <span class="badge">Ask or Orchestrator</span>
+          <span class="badge">Advance or Orchestrator</span>
           <p style="font-size:13px; color:var(--text-secondary); margin:.75rem 0;">
             Before moving on, ask Bob to help run the application locally and explain how to use it as an end user or evaluator.
           </p>
@@ -779,6 +779,31 @@ mvn -version</pre>
               <li>Confirming the default port is <code>8080</code></li>
               <li>Explaining the payment form</li>
               <li>Describing how to authorize a payment, review history, and test capture/refund flows</li>
+            </ul>
+          </div>
+
+          <h4 style="margin-top: 2rem; font-size:14px; font-weight:600;">Verify application startup</h4>
+          <span class="badge">Advance or Orchestrator</span>
+          <p style="font-size:13px; color:var(--text-secondary); margin:.75rem 0;">
+            After starting the application, verify that all endpoints are functioning correctly by testing the API with curl commands.
+          </p>
+
+          <div class="prompt-card">
+            <div class="prompt-card__header">
+              <span class="prompt-card__title">API verification prompt</span>
+              <button class="copy-btn" data-copy-target="prompt-verify">Copy</button>
+            </div>
+            <pre class="prompt-body" id="prompt-verify">Please create a markdown file documenting 4 sample curl commands to verify the application has started successfully. Include commands for health check, transaction history, payment authorization, and cache management. Execute each curl command to confirm the endpoints are responding correctly.</pre>
+          </div>
+
+          <div class="output-panel">
+            <h4>What Bob should help with</h4>
+            <ul>
+              <li>Creating a comprehensive <code>API_TEST_COMMANDS.md</code> file with sample curl commands</li>
+              <li>Testing the health check endpoint (<code>/actuator/health</code>)</li>
+              <li>Verifying payment API endpoints (<code>/api/payments/*</code>)</li>
+              <li>Confirming admin endpoints (<code>/admin/cache/clear</code>)</li>
+              <li>Validating that all responses match expected formats</li>
             </ul>
           </div>
 
