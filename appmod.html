@@ -524,7 +524,7 @@
           <div class="section-kicker">Overview</div>
           <h2 id="what-youll-experience">What You'll Experience</h2>
           <p class="section-lead">
-            This walkthrough demonstrates Bob's capabilities for Java modernization using the <strong>payment-app</strong> sample application. You'll learn how to understand an unfamiliar codebase, generate comprehensive documentation, modernize from Java 11 to Java 17, create a frontend showcase, and execute end-to-end testing.
+            This walkthrough demonstrates Bob's capabilities for Java modernization using the <strong>payment-app</strong> sample application. You'll learn how to understand an unfamiliar codebase, generate comprehensive documentation, modernize from Java 11 to Java 17, create a React-based frontend interface, and execute end-to-end testing.
           </p>
         </div>
         <div class="grid grid--3">
@@ -538,7 +538,7 @@
           </article>
           <article class="feature-card">
             <h3>Frontend Creation & Testing</h3>
-            <p>Create a frontend showcase using HTML and vanilla JavaScript to demonstrate the application, then let Bob create and execute comprehensive end-to-end test plans.</p>
+            <p>Create a modern React-based frontend interface for the modernized application, then let Bob create and execute comprehensive end-to-end test plans.</p>
           </article>
         </div>
       </section>
@@ -688,7 +688,7 @@ mvn -version</pre>
             In this section, you will use Bob to inspect the payment application and generate a high-level understanding of what the system does. This is especially useful when onboarding to an unfamiliar repository, preparing for modernization, or creating a fast architecture briefing for a team.
           </p>
           <p style="font-size:13px; color:var(--text-secondary); margin:.75rem 0;">
-            Bob should be able to identify the application's business purpose, key capabilities, technology stack, major backend layers, and the relationship between the browser UI, REST controllers, service layer, persistence layer, in-memory database, and operational endpoints.
+            Bob should be able to identify the application's business purpose, key capabilities, technology stack, major backend layers, and the relationship between REST controllers, service layer, persistence layer, in-memory database, and operational endpoints.
           </p>
 
           <div class="prompt-card">
@@ -705,14 +705,14 @@ mvn -version</pre>
               <li>Application purpose</li>
               <li>Key features such as authorize, capture, refund, and transaction history</li>
               <li>A high-level architecture diagram</li>
-              <li>Technology stack including Spring Boot, JPA, H2, React, Caffeine cache, and Prometheus metrics</li>
+              <li>Technology stack including Spring Boot, JPA, H2, Caffeine cache, and Prometheus metrics</li>
             </ul>
           </div>
 
           <h4 id="chat-with-codebase" style="margin-top: 2rem; font-size:14px; font-weight:600;">Chat with the codebase</h4>
           <span class="badge">Ask mode</span>
           <p style="font-size:13px; color:var(--text-secondary); margin:.75rem 0;">
-            Continue the conversation with targeted questions about controllers, services, configuration, frontend code, and runtime behavior.
+            Continue the conversation with targeted questions about controllers, services, configuration, and runtime behavior.
           </p>
 
           <div class="question-list">
@@ -740,24 +740,14 @@ mvn -version</pre>
               <div class="question-item__title">Question 3</div>
               <div class="prompt-card">
                 <div class="prompt-card__header">
-                  <span class="prompt-card__title">Frontend behavior</span>
+                  <span class="prompt-card__title">Observability and performance</span>
                   <button class="copy-btn" data-copy-target="q3">Copy</button>
                 </div>
-                <pre class="prompt-body" id="q3">How does the browser UI interact with the backend? Summarize the frontend stack, user workflow, polling behavior, and the API endpoints it calls.</pre>
+                <pre class="prompt-body" id="q3">What observability and performance-related features are already present in this application? Include caching, health endpoints, metrics, and any simulated processing logic.</pre>
               </div>
             </div>
             <div class="question-item">
               <div class="question-item__title">Question 4</div>
-              <div class="prompt-card">
-                <div class="prompt-card__header">
-                  <span class="prompt-card__title">Observability and performance</span>
-                  <button class="copy-btn" data-copy-target="q4">Copy</button>
-                </div>
-                <pre class="prompt-body" id="q4">What observability and performance-related features are already present in this application? Include caching, health endpoints, metrics, and any simulated processing logic.</pre>
-              </div>
-            </div>
-            <div class="question-item">
-              <div class="question-item__title">Question 5</div>
               <div class="prompt-card">
                 <div class="prompt-card__header">
                   <span class="prompt-card__title">Modernization readiness</span>
@@ -1401,10 +1391,35 @@ public record PaymentResponse(
           <p style="margin-bottom: 0.75rem;">Bring up the modernized app to validate it works.</p>
           <pre><code>cd payment-app-java17
 mvn spring-boot:run</code></pre>
-          <div class="callout callout--warning" style="margin-top: 1rem; margin-bottom: 0;">
+          <div class="callout callout--warning" style="margin-top: 1rem; margin-bottom: 1rem;">
             <p style="margin: 0;"><strong>Important:</strong> Make sure you stop the previously running server first — otherwise you'll get a port conflict on <code>localhost:8080</code>. In the terminal where the original app is running, press <code>Ctrl+C</code> to stop it before starting the Java 17 version.</p>
           </div>
-          <p style="margin: 0.75rem 0 0; font-style: italic;">Or just ask Bob to run it :)</p>
+          
+          <h5 style="margin-top: 1.5rem; margin-bottom: 0.75rem; color: var(--text);">Confirm Backend Service is Running</h5>
+          <p style="margin-bottom: 0.75rem;">Once the application starts, verify the backend API is working by testing the endpoints. Open a new terminal and run:</p>
+          
+          <p style="margin-bottom: 0.5rem; font-weight: 600;">1. Check transaction history (should return empty array initially):</p>
+          <pre><code>curl http://localhost:8080/api/payments/history</code></pre>
+          <p style="margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--text-secondary);">Expected response: <code>[]</code></p>
+          
+          <p style="margin-bottom: 0.5rem; font-weight: 600;">2. Test payment authorization:</p>
+          <pre><code>curl -X POST http://localhost:8080/api/payments/authorize \
+  -H "Content-Type: application/json" \
+  -d '{
+    "cardNumber": "4263970000005262",
+    "expiryMonth": "12",
+    "expiryYear": "25",
+    "cvv": "123",
+    "amount": 100.00,
+    "currency": "USD"
+  }'</code></pre>
+          <p style="margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--text-secondary);">Expected response: JSON with <code>"success": true</code> and <code>"status": "AUTHORIZED"</code></p>
+          
+          <p style="margin-bottom: 0.5rem; font-weight: 600;">3. Verify the transaction was recorded:</p>
+          <pre><code>curl http://localhost:8080/api/payments/history</code></pre>
+          <p style="margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--text-secondary);">Expected response: JSON array containing the transaction you just created</p>
+          
+          <p style="margin: 0.75rem 0 0; font-style: italic;">Or just ask Bob to run it and test the endpoints :)</p>
         </div>
       </article>
 
