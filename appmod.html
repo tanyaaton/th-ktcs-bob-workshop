@@ -1417,10 +1417,10 @@ mvn spring-boot:run</code></pre>
 
         <div style="margin-top: 1rem;">
           <p style="font-size:13px; color:var(--text-secondary); margin:.75rem 0;">
-            In this section, you'll ask Bob to create a modern frontend interface to showcase the payment application. This demonstrates Bob's ability to generate complete, production-ready frontend code with consistent styling and best practices.
+            In this section, you'll ask Bob to create a modern React-based frontend interface for the modernized payment application. The frontend will be added to the <code>payment-app-java17/src/main/resources/static</code> directory, making it a complete Spring Boot application with an integrated UI.
           </p>
           <p style="font-size:13px; color:var(--text-secondary); margin:.75rem 0;">
-            <strong>Fallback Plan:</strong> If Bob encounters any issues or cannot complete the frontend creation, you can manually create a simple HTML + vanilla JavaScript interface following the guidelines below.
+            <strong>Note:</strong> This step assumes you've completed section 2.2 (Java Modernization) and have the <code>payment-app-java17</code> folder ready. The frontend will be created inside this modernized application.
           </p>
         </div>
 
@@ -1429,109 +1429,102 @@ mvn spring-boot:run</code></pre>
             <span class="prompt-card__title">Frontend Creation Prompt</span>
             <button class="copy-btn" data-copy-target="prompt-frontend">Copy</button>
           </div>
-          <pre class="prompt-body" id="prompt-frontend">Create a modern, responsive frontend interface for the payment application with the following requirements:
+          <pre class="prompt-body" id="prompt-frontend">Create a modern, responsive React-based frontend for the payment application in the payment-app-java17/src/main/resources/static directory with the following requirements:
 
 1. Technology Stack:
+   - React 18 (loaded via CDN - no build tools needed)
    - HTML5 with semantic markup
-   - Vanilla JavaScript (no frameworks)
-   - CSS3 with modern features (Grid, Flexbox, CSS Variables)
+   - Modern CSS3 with gradient backgrounds and smooth animations
+   - Babel Standalone for JSX transformation
 
-2. Styling Guidelines:
-   - Use Carbon Design System color palette and spacing
-   - Implement responsive design (mobile-first approach)
-   - Include smooth transitions and hover effects
-   - Ensure accessibility (ARIA labels, keyboard navigation)
-
-3. Features to Implement:
-   - Payment form with validation
-   - Transaction history display
-   - Real-time status updates
-   - Error handling and user feedback
-   - Loading states and animations
-
-4. Code Quality:
-   - Clean, well-commented code
-   - Consistent naming conventions
-   - Modular structure
-   - Cross-browser compatibility
-
-5. File Structure:
-   payment-app-frontend/
+2. File Structure (create in payment-app-java17/src/main/resources/static/):
    ├── index.html
-   ├── styles.css
-   ├── app.js
-   └── README.md
+   ├── app.js (React components)
+   └── styles.css
 
-Create this frontend in a new folder called 'payment-app-frontend' alongside the existing payment-app directory.</pre>
+3. React Components to Implement:
+   - App (main container with state management)
+   - PaymentForm (with card number formatting, validation, and test cards display)
+   - TransactionHistory (with capture/refund actions)
+
+4. Features:
+   - Payment authorization with formatted card input (XXXX XXXX XXXX XXXX)
+   - Expiry date formatting (MM/YY)
+   - CVV validation (3-4 digits)
+   - Amount validation (decimal support)
+   - Transaction history with auto-refresh every 5 seconds
+   - Capture and Refund actions for transactions
+   - Status badges (AUTHORIZED, CAPTURED, DECLINED, REFUNDED)
+   - Success/error messages with auto-dismiss
+   - Loading states and empty states
+   - Test card numbers display (Visa: 4263970000005262, MasterCard: 5425230000004415, Amex: 374101000000608)
+
+5. Styling Requirements:
+   - Purple gradient background (from #667eea to #764ba2)
+   - White cards with rounded corners and shadows
+   - Responsive design (mobile, tablet, desktop)
+   - Smooth hover effects and transitions
+   - Color-coded status badges
+   - Professional table layout for transactions
+
+6. API Integration:
+   - POST /api/payments/authorize (for payment authorization)
+   - POST /api/payments/capture (for capturing authorized payments)
+   - POST /api/payments/refund (for refunding captured payments)
+   - GET /api/payments/history (for transaction history)
+
+7. Code Quality:
+   - Clean, well-structured React components
+   - Proper state management with useState and useEffect
+   - Input validation and error handling
+   - Responsive design with media queries
+   - Accessible UI elements
+
+Create all three files (index.html, app.js, styles.css) in the payment-app-java17/src/main/resources/static directory.</pre>
         </div>
 
-        <div class="callout callout--warning" style="margin-top: 1.5rem;">
-          <div class="callout__label">⚠️ Fallback Plan</div>
-          <h4 style="margin-top: 0.5rem; margin-bottom: 0.75rem; color: var(--text);">Manual Frontend Creation</h4>
-          <p style="margin-bottom: 0.75rem;">If Bob cannot complete the frontend creation, follow these steps to create a basic interface manually:</p>
+        <div class="callout callout--info" style="margin-top: 1.5rem;">
+          <div class="callout__label">📋 Key Implementation Details</div>
+          <h4 style="margin-top: 0.5rem; margin-bottom: 0.75rem; color: var(--text);">React Component Structure</h4>
           
           <div style="margin-top: 1rem;">
-            <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 0.5rem;">Step 1: Create HTML Structure</h5>
-            <pre style="background: var(--bg-subtle); padding: 1rem; border-radius: 4px; overflow-x: auto;"><code><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Payment Application</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div class="container">
-    <header>
-      <h1>Payment Application</h1>
-    </header>
-    <main>
-      <!-- Payment form and transaction history go here -->
-    </main>
-  </div>
-  <script src="app.js"></script>
-</body>
-</html></code></pre>
+            <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 0.5rem;">index.html - React Setup</h5>
+            <p style="font-size: 13px; margin-bottom: 0.5rem;">Load React 18 and Babel from CDN:</p>
+            <pre style="background: var(--bg-subtle); padding: 1rem; border-radius: 4px; overflow-x: auto;"><code><script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel" src="app.js"></script></code></pre>
           </div>
 
           <div style="margin-top: 1rem;">
-            <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 0.5rem;">Step 2: Apply Consistent Styling</h5>
-            <p style="font-size: 13px; margin-bottom: 0.5rem;">Use these CSS variables for consistency with the lab guide:</p>
-            <pre style="background: var(--bg-subtle); padding: 1rem; border-radius: 4px; overflow-x: auto;"><code>:root {
-  --primary: #0f62fe;
-  --primary-hover: #0353e9;
-  --text: #161616;
-  --text-secondary: #525252;
-  --bg: #ffffff;
-  --bg-subtle: #f4f4f4;
-  --border: #e0e0e0;
-  --border-subtle: #e8e8e8;
-  --success: #24a148;
-  --error: #da1e28;
-  --warning: #f1c21b;
-}</code></pre>
-          </div>
-
-          <div style="margin-top: 1rem;">
-            <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 0.5rem;">Step 3: Implement Core JavaScript</h5>
-            <p style="font-size: 13px; margin-bottom: 0.5rem;">Create basic API calls and form handling:</p>
-            <pre style="background: var(--bg-subtle); padding: 1rem; border-radius: 4px; overflow-x: auto;"><code>// API base URL
-const API_BASE = 'http://localhost:8080/api';
-
-// Submit payment
-async function submitPayment(paymentData) {
-  const response = await fetch(`${API_BASE}/payments/authorize`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(paymentData)
-  });
-  return response.json();
+            <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 0.5rem;">app.js - React Components</h5>
+            <p style="font-size: 13px; margin-bottom: 0.5rem;">Three main components with hooks:</p>
+            <pre style="background: var(--bg-subtle); padding: 1rem; border-radius: 4px; overflow-x: auto;"><code>// App component - main container with state
+function App() {
+  const [transactions, setTransactions] = useState([]);
+  const [message, setMessage] = useState(null);
+  // Auto-refresh every 5 seconds
+  useEffect(() => {
+    fetchTransactions();
+    const interval = setInterval(fetchTransactions, 5000);
+    return () => clearInterval(interval);
+  }, []);
 }
 
-// Fetch transaction history
-async function getTransactions() {
-  const response = await fetch(`${API_BASE}/payments/history`);
-  return response.json();
+// PaymentForm - handles payment submission
+// TransactionHistory - displays and manages transactions</code></pre>
+          </div>
+
+          <div style="margin-top: 1rem;">
+            <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 0.5rem;">styles.css - Modern Styling</h5>
+            <p style="font-size: 13px; margin-bottom: 0.5rem;">Purple gradient theme with responsive design:</p>
+            <pre style="background: var(--bg-subtle); padding: 1rem; border-radius: 4px; overflow-x: auto;"><code>body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }</code></pre>
           </div>
         </div>
@@ -1539,12 +1532,20 @@ async function getTransactions() {
         <div class="output-panel" style="margin-top: 1.5rem;">
           <h4>Expected Outcome</h4>
           <ul>
-            <li>Complete frontend application in <code>payment-app-frontend/</code> folder</li>
+            <li>Three files created in <code>payment-app-java17/src/main/resources/static/</code>:
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><code>index.html</code> - React setup and root element</li>
+                <li><code>app.js</code> - React components (App, PaymentForm, TransactionHistory)</li>
+                <li><code>styles.css</code> - Modern styling with purple gradient theme</li>
+              </ul>
+            </li>
+            <li>Fully functional React-based payment interface</li>
             <li>Responsive design that works on mobile, tablet, and desktop</li>
-            <li>Consistent styling matching the Carbon Design System</li>
-            <li>Functional payment form with validation</li>
-            <li>Transaction history display with real-time updates</li>
-            <li>Clean, well-documented code</li>
+            <li>Real-time transaction updates (auto-refresh every 5 seconds)</li>
+            <li>Payment form with card number formatting and validation</li>
+            <li>Transaction history with Capture/Refund actions</li>
+            <li>Professional UI with status badges and smooth animations</li>
+            <li>Test card numbers displayed for easy testing</li>
           </ul>
         </div>
 
