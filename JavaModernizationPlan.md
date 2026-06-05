@@ -2,115 +2,235 @@
 ## Payment Processing Application
 
 **Document Version:** 1.0  
-**Date:** 2026-05-28  
-**Current Java Version:** 11  
-**Target Java Version:** 17  
-**Spring Boot Version:** 2.7.18 → 3.x (recommended)
+**Date:** June 5, 2026  
+**Current Version:** Java 11 with Spring Boot 2.7.18  
+**Target Version:** Java 17 with Spring Boot 3.x
 
 ---
 
 ## Executive Summary
 
-This document outlines the comprehensive plan to modernize the Payment Processing Application from Java 11 to Java 17. The migration will leverage new language features, improve code quality, enhance performance, and ensure compatibility with modern frameworks.
+This document outlines the comprehensive plan to modernize the Payment Processing Application from Java 11 to Java 17. The migration includes upgrading Spring Boot from 2.7.18 to 3.2.x (latest stable), replacing deprecated APIs, and leveraging new Java 17 features to improve code quality, performance, and maintainability.
 
-**Key Benefits:**
-- Enhanced performance (G1GC improvements, better JIT compilation)
-- Improved code readability with Records, Sealed Classes, and Text Blocks
-- Better pattern matching capabilities
-- Stronger encapsulation and type safety
-- Long-term support (Java 17 is an LTS release until September 2029)
+**Estimated Total Effort:** 36-54 hours  
+**Overall Risk Level:** Medium  
+**Recommended Timeline:** 2-3 weeks (including testing)
 
 ---
 
-## 1. Summary of Changes Required
+## Table of Contents
 
-### 1.1 Dependency Updates
-
-| Component | Current Version | Target Version | Reason |
-|-----------|----------------|----------------|---------|
-| Java | 11 | 17 | LTS upgrade |
-| Spring Boot | 2.7.18 | 3.2.x | Java 17 compatibility, Jakarta EE 9+ |
-| Maven Compiler Plugin | 3.8.1 | 3.11.0 | Java 17 support |
-| H2 Database | (inherited) | 2.2.x | Compatibility |
-| Caffeine Cache | (inherited) | Latest | Performance improvements |
-
-### 1.2 API Changes
-
-**Deprecated/Removed APIs:**
-- `javax.*` packages → `jakarta.*` (Spring Boot 3.x requirement)
-- `Optional.isPresent()` → `Optional.isEmpty()` (available since Java 11, but better pattern matching in 17)
-
-### 1.3 Configuration Changes
-
-**pom.xml:**
-- Update Java version properties (11 → 17)
-- Update Spring Boot parent version (2.7.18 → 3.2.x)
-- Update maven-compiler-plugin version and configuration
-- Update Dockerfile base images (Java 11 → Java 17)
-
-**application.properties:**
-- Review and update deprecated Spring Boot 3.x properties
-- Update CORS configuration (Spring Boot 3.x changes)
+1. [Current State Analysis](#1-current-state-analysis)
+2. [Summary of Changes Required](#2-summary-of-changes-required)
+3. [Deprecated and Removed APIs](#3-deprecated-and-removed-apis)
+4. [Java 17 Feature Opportunities](#4-java-17-feature-opportunities)
+5. [Dependency Updates](#5-dependency-updates)
+6. [Configuration Changes](#6-configuration-changes)
+7. [Implementation Roadmap](#7-implementation-roadmap)
+8. [Risk Assessment](#8-risk-assessment)
+9. [Testing Strategy](#9-testing-strategy)
+10. [Rollback Plan](#10-rollback-plan)
 
 ---
 
-## 2. Deprecated/Removed APIs Requiring Replacement
+## 1. Current State Analysis
 
-### 2.1 Jakarta EE Migration (Spring Boot 3.x)
+### 1.1 Application Overview
+- **Type:** Spring Boot REST API for payment processing
+- **Current Java Version:** 11
+- **Current Spring Boot Version:** 2.7.18
+- **Build Tool:** Maven 3.8
+- **Database:** H2 (in-memory)
+- **Key Dependencies:**
+  - Spring Boot Starter Web
+  - Spring Boot Starter Data JPA
+  - Spring Boot Starter Cache (Caffeine)
+  - Spring Boot Actuator
+  - Micrometer Prometheus
+  - Bean Validation (javax.validation)
 
-**Impact:** HIGH  
-**Files Affected:** All files using `javax.*` imports
+### 1.2 Code Structure
+```
+payment-app/
+├── model/
+│   ├── PaymentRequest.java (Builder pattern, javax.validation)
+│   ├── PaymentResponse.java (Builder pattern)
+│   ├── Transaction.java (JPA Entity, Builder pattern, javax.persistence)
+│   └── TransactionStatus.java (Enum)
+├── service/
+│   ├── PaymentService.java (Business logic, Optional usage)
+│   └── CacheService.java
+├── controller/
+│   ├── PaymentController.java (REST endpoints, javax.validation)
+│   └── AdminController.java
+├── repository/
+│   └── TransactionRepository.java (Spring Data JPA)
+└── config/
+    └── CacheConfig.java (Caffeine configuration)
+```
 
-| Old Package | New Package | Files Affected |
-|-------------|-------------|----------------|
+### 1.3 Key Findings
+- ✅ No usage of removed Java APIs (e.g., Nashorn, Pack200)
+- ⚠️ Uses `javax.*` packages (need migration to `jakarta.*`)
+- ⚠️ Manual Builder pattern implementations (can be replaced with records)
+- ⚠️ Traditional switch statements (can use enhanced switch expressions)
+- ⚠️ Optional.isPresent() pattern (can use modern alternatives)
+- ✅ Already uses LocalDateTime (no Date/Calendar issues)
+- ⚠️ Dockerfile uses Java 11 base images
+
+---
+
+## 2. Summary of Changes Required
+
+### 2.1 Critical Changes (Must Do)
+1. **Java Version Update**
+   - Update `java.version` from 11 to 17 in pom.xml
+   - Update Maven compiler plugin source/target to 17
+   - Update Dockerfile base images to Java 17
+
+2. **Spring Boot Major Version Upgrade**
+   - Upgrade from Spring Boot 2.7.18 to 3.2.x
+   - This is a major version change with breaking changes
+
+3. **Namespace Migration (javax → jakarta)**
+   - Replace all `javax.persistence.*` with `jakarta.persistence.*`
+   - Replace all `javax.validation.*` with `jakarta.validation.*`
+   - Update imports across all affected files
+
+4. **Dependency Updates**
+   - Update all Spring Boot dependencies to 3.2.x versions
+   - Update Maven compiler plugin to 3.11.0+
+   - Verify H2 database compatibility
+
+### 2.2 Recommended Changes (Should Do)
+1. **Leverage Java 17 Records**
+   - Convert DTOs to records (PaymentRequest, PaymentResponse)
+   - Simplify immutable data classes
+
+2. **Enhanced Switch Expressions**
+   - Modernize switch statements in PaymentService
+   - Use pattern matching where applicable
+
+3. **Sealed Classes**
+   - Consider sealed hierarchy for TransactionStatus-related types
+
+4. **Text Blocks**
+   - Use for multi-line strings (SQL queries, JSON templates)
+
+5. **Pattern Matching**
+   - Replace instanceof checks with pattern matching
+   - Use pattern matching for Optional
+
+### 2.3 Optional Enhancements (Nice to Have)
+1. **NullPointerException improvements**
+   - Leverage helpful NPE messages (Java 14+)
+
+2. **Stream API enhancements**
+   - Use new Stream methods (toList(), etc.)
+
+3. **Performance optimizations**
+   - Leverage JVM improvements in Java 17
+
+---
+
+## 3. Deprecated and Removed APIs
+
+### 3.1 APIs Requiring Immediate Replacement
+
+#### 3.1.1 javax.* → jakarta.* Migration
+
+**Impact:** HIGH - Affects multiple files  
+**Effort:** 2-3 hours  
+**Risk:** LOW (straightforward find-replace)
+
+| Current Package | New Package | Affected Files |
+|----------------|-------------|----------------|
 | `javax.persistence.*` | `jakarta.persistence.*` | Transaction.java |
 | `javax.validation.*` | `jakarta.validation.*` | PaymentRequest.java, PaymentController.java |
 
-**Changes Required:**
+**Files to Update:**
+1. **Transaction.java** (Line 3)
+   ```java
+   // OLD
+   import javax.persistence.*;
+   
+   // NEW
+   import jakarta.persistence.*;
+   ```
 
-```java
-// BEFORE (Java 11 + Spring Boot 2.x)
-import javax.persistence.*;
-import javax.validation.constraints.*;
+2. **PaymentRequest.java** (Lines 3-5)
+   ```java
+   // OLD
+   import javax.validation.constraints.NotBlank;
+   import javax.validation.constraints.NotNull;
+   import javax.validation.constraints.Positive;
+   
+   // NEW
+   import jakarta.validation.constraints.NotBlank;
+   import jakarta.validation.constraints.NotNull;
+   import jakarta.validation.constraints.Positive;
+   ```
 
-// AFTER (Java 17 + Spring Boot 3.x)
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-```
+3. **PaymentController.java** (Line 11)
+   ```java
+   // OLD
+   import javax.validation.Valid;
+   
+   // NEW
+   import jakarta.validation.Valid;
+   ```
 
-### 2.2 Optional API Improvements
+### 3.2 Spring Boot 2.x → 3.x Breaking Changes
 
-**Impact:** LOW  
-**Files Affected:** PaymentService.java, PaymentController.java
+**Impact:** HIGH  
+**Effort:** 4-6 hours  
+**Risk:** MEDIUM
 
-```java
-// BEFORE
-if (!optionalTransaction.isPresent()) {
-    return buildErrorResponse(...);
-}
+#### 3.2.1 Configuration Properties
+- Spring Boot 3.x has stricter configuration binding
+- Review `application.properties` for deprecated properties
 
-// AFTER (More readable)
-if (optionalTransaction.isEmpty()) {
-    return buildErrorResponse(...);
-}
-```
+#### 3.2.2 Actuator Endpoints
+- Some actuator endpoint paths may have changed
+- Verify Prometheus metrics endpoint compatibility
+
+#### 3.2.3 Security (if added later)
+- Spring Security 6.x has significant changes
+- Currently not used, but document for future reference
+
+### 3.3 No Deprecated APIs Found
+
+The following Java 11 deprecated APIs are **NOT** used in this codebase:
+- ✅ Nashorn JavaScript engine (removed in Java 15)
+- ✅ Pack200 tools (removed in Java 14)
+- ✅ RMI Activation (removed in Java 17)
+- ✅ Applet API (deprecated for removal)
+- ✅ Security Manager (deprecated in Java 17)
 
 ---
 
-## 3. New Java 17 Features for Code Improvement
+## 4. Java 17 Feature Opportunities
 
-### 3.1 Records (JEP 395) - HIGH PRIORITY
+### 4.1 Records (JEP 395 - Java 16)
 
-**Benefits:** Immutable data carriers, automatic equals/hashCode/toString, reduced boilerplate
+**Impact:** HIGH - Significant code reduction  
+**Effort:** 3-4 hours  
+**Risk:** LOW  
+**Benefits:** Immutability, less boilerplate, better semantics
 
-**Recommended Conversions:**
+#### 4.1.1 Convert PaymentRequest to Record
 
-#### 3.1.1 PaymentRequest → Record
-**Current:** 138 lines with Builder pattern  
-**After:** ~20 lines as Record
-
+**Current Implementation:** 138 lines with manual builder
 ```java
-// AFTER - PaymentRequest.java
+public class PaymentRequest {
+    private String cardNumber;
+    private BigDecimal amount;
+    // ... 130+ lines of getters, setters, builder
+}
+```
+
+**Proposed Record Implementation:** ~20 lines
+```java
 public record PaymentRequest(
     @NotBlank(message = "Card number is required")
     String cardNumber,
@@ -134,12 +254,16 @@ public record PaymentRequest(
 }
 ```
 
-**Effort:** 2 hours  
-**Risk:** LOW (Records are immutable, ensure no setters are used)
+**Benefits:**
+- Reduces code by ~85%
+- Automatic equals(), hashCode(), toString()
+- Immutable by default
+- Clear intent as data carrier
 
-#### 3.1.2 PaymentResponse → Record
-**Current:** 140 lines with Builder pattern  
-**After:** ~15 lines as Record
+#### 4.1.2 Convert PaymentResponse to Record
+
+**Current:** 140 lines  
+**Proposed:** ~15 lines with factory methods
 
 ```java
 public record PaymentResponse(
@@ -152,7 +276,6 @@ public record PaymentResponse(
     String message,
     LocalDateTime timestamp
 ) {
-    // Builder pattern can be replaced with static factory methods
     public static PaymentResponse success(Transaction transaction, String message) {
         return new PaymentResponse(
             transaction.getId(),
@@ -178,102 +301,19 @@ public record PaymentResponse(
 }
 ```
 
-**Effort:** 2 hours  
-**Risk:** LOW
+**Note:** Transaction.java should remain a JPA entity class (not converted to record) as JPA requires mutable entities.
 
-**Note:** Transaction.java should remain a JPA Entity (not converted to Record) as JPA requires mutable entities.
+### 4.2 Enhanced Switch Expressions (JEP 361 - Java 14)
 
-### 3.2 Sealed Classes (JEP 409) - MEDIUM PRIORITY
-
-**Benefits:** Restricted class hierarchies, exhaustive pattern matching
-
-**Recommended:** TransactionStatus enum could be enhanced with sealed interface pattern for more complex status hierarchies
-
-```java
-// AFTER - Enhanced status hierarchy
-public sealed interface TransactionStatus 
-    permits SuccessStatus, FailureStatus {
-    
-    String getMessage();
-}
-
-public record SuccessStatus(String type, String authCode) 
-    implements TransactionStatus {
-    public String getMessage() {
-        return "Transaction " + type + " successfully";
-    }
-}
-
-public sealed interface FailureStatus extends TransactionStatus 
-    permits DeclinedStatus, InsufficientFundsStatus, ExpiredCardStatus {
-}
-
-public record DeclinedStatus(String reason) implements FailureStatus {
-    public String getMessage() {
-        return "Transaction declined: " + reason;
-    }
-}
-```
-
-**Effort:** 4 hours  
-**Risk:** MEDIUM (Requires refactoring service logic)  
-**Recommendation:** Consider for Phase 2 if time permits
-
-### 3.3 Text Blocks (JEP 378) - LOW PRIORITY
-
-**Benefits:** Multi-line strings, improved readability for SQL/JSON/HTML
-
-**Potential Use Cases:**
-- SQL queries in TransactionRepository (if complex queries are added)
-- Error messages
-- Documentation strings
-
-```java
-// AFTER - Example for future SQL queries
-@Query("""
-    SELECT t FROM Transaction t 
-    WHERE t.status = :status 
-      AND t.createdAt BETWEEN :startDate AND :endDate
-    ORDER BY t.createdAt DESC
-    """)
-List<Transaction> findByStatusAndDateRange(
-    @Param("status") TransactionStatus status,
-    @Param("startDate") LocalDateTime startDate,
-    @Param("endDate") LocalDateTime endDate
-);
-```
-
-**Effort:** 1 hour  
+**Impact:** MEDIUM  
+**Effort:** 1-2 hours  
 **Risk:** LOW  
-**Recommendation:** Apply opportunistically during other changes
+**Benefits:** More concise, expression-based, exhaustiveness checking
 
-### 3.4 Pattern Matching for instanceof (JEP 394) - LOW PRIORITY
+#### 4.2.1 Modernize getDeclineMessage()
 
-**Benefits:** Reduced casting boilerplate
-
-**Current Usage:** Not heavily used in current codebase  
-**Recommendation:** Apply in exception handling if expanded
-
+**Current Implementation (PaymentService.java, lines 200-210):**
 ```java
-// AFTER - Example pattern
-if (exception instanceof ValidationException ve) {
-    return buildErrorResponse(ve.getMessage());
-} else if (exception instanceof DataAccessException dae) {
-    return buildErrorResponse("Database error: " + dae.getMessage());
-}
-```
-
-**Effort:** 1 hour  
-**Risk:** LOW
-
-### 3.5 Switch Expressions (JEP 361) - MEDIUM PRIORITY
-
-**Benefits:** More concise, expression-based switches
-
-**Recommended:** PaymentService.getDeclineMessage()
-
-```java
-// BEFORE
 private String getDeclineMessage(TransactionStatus status) {
     switch (status) {
         case INSUFFICIENT_FUNDS:
@@ -285,8 +325,10 @@ private String getDeclineMessage(TransactionStatus status) {
             return "Transaction declined";
     }
 }
+```
 
-// AFTER
+**Proposed Switch Expression:**
+```java
 private String getDeclineMessage(TransactionStatus status) {
     return switch (status) {
         case INSUFFICIENT_FUNDS -> "Transaction declined: Insufficient funds";
@@ -297,309 +339,485 @@ private String getDeclineMessage(TransactionStatus status) {
 }
 ```
 
+**Benefits:**
+- No break statements needed
+- Returns value directly
+- Compiler ensures exhaustiveness
+- More concise and readable
+
+### 4.3 Pattern Matching for instanceof (JEP 394 - Java 16)
+
+**Impact:** LOW (limited usage in current code)  
+**Effort:** 30 minutes  
+**Risk:** LOW
+
+**Current Pattern:**
+```java
+if (obj instanceof String) {
+    String str = (String) obj;
+    // use str
+}
+```
+
+**New Pattern:**
+```java
+if (obj instanceof String str) {
+    // use str directly
+}
+```
+
+**Note:** Limited applicability in current codebase, but good practice for future code.
+
+### 4.4 Sealed Classes (JEP 409 - Java 17)
+
+**Impact:** MEDIUM  
+**Effort:** 2-3 hours  
+**Risk:** LOW  
+**Benefits:** Controlled inheritance, better domain modeling
+
+#### 4.4.1 Create Sealed Transaction Status Hierarchy
+
+**Current:** Simple enum (TransactionStatus.java)
+
+**Proposed Enhancement:**
+```java
+public sealed interface TransactionResult 
+    permits SuccessfulTransaction, FailedTransaction {
+    TransactionStatus status();
+    String message();
+}
+
+public record SuccessfulTransaction(
+    TransactionStatus status,
+    String authorizationCode,
+    String message
+) implements TransactionResult {}
+
+public record FailedTransaction(
+    TransactionStatus status,
+    String message,
+    FailureReason reason
+) implements TransactionResult {}
+
+public enum FailureReason {
+    INSUFFICIENT_FUNDS,
+    EXPIRED_CARD,
+    INVALID_CARD,
+    FRAUD_DETECTED
+}
+```
+
+**Benefits:**
+- Type-safe transaction results
+- Compiler-enforced exhaustiveness
+- Better domain modeling
+- Clearer API contracts
+
+**Note:** This is an optional enhancement that requires more significant refactoring.
+
+### 4.5 Text Blocks (JEP 378 - Java 15)
+
+**Impact:** LOW (limited usage)  
+**Effort:** 30 minutes  
+**Risk:** LOW
+
+**Use Cases:**
+- SQL queries (if added)
+- JSON templates for testing
+- Multi-line error messages
+
+**Example:**
+```java
+// OLD
+String json = "{\n" +
+              "  \"status\": \"error\",\n" +
+              "  \"message\": \"Transaction failed\"\n" +
+              "}";
+
+// NEW
+String json = """
+    {
+      "status": "error",
+      "message": "Transaction failed"
+    }
+    """;
+```
+
+### 4.6 Helpful NullPointerExceptions (JEP 358 - Java 14)
+
+**Impact:** LOW (automatic)  
+**Effort:** 0 hours  
+**Risk:** NONE  
+**Benefits:** Better debugging
+
+**Automatic Improvement:**
+```java
+// OLD NPE message:
+// java.lang.NullPointerException
+
+// NEW NPE message (Java 14+):
+// java.lang.NullPointerException: 
+//   Cannot invoke "String.length()" because "transaction.getCardNumber()" is null
+```
+
+**Action Required:** None - automatic JVM improvement
+
+### 4.7 Stream API Enhancements
+
+**Impact:** LOW  
 **Effort:** 1 hour  
 **Risk:** LOW
 
----
+#### 4.7.1 Stream.toList() (Java 16)
 
-## 4. Updated pom.xml Changes
+**Current:**
+```java
+List<Transaction> list = stream.collect(Collectors.toList());
+```
 
-### 4.1 Key Changes Summary
+**New:**
+```java
+List<Transaction> list = stream.toList();
+```
 
-| Property/Dependency | Current | Target | Notes |
-|---------------------|---------|--------|-------|
-| java.version | 11 | 17 | Core Java version |
-| maven.compiler.source | 11 | 17 | Compiler source level |
-| maven.compiler.target | 11 | 17 | Compiler target level |
-| spring-boot-starter-parent | 2.7.18 | 3.2.5 | Major version upgrade |
-| maven-compiler-plugin | 3.8.1 | 3.11.0 | Java 17 support |
-
-### 4.2 Dockerfile Updates
-
-**Build Stage:**
-- FROM maven:3.8-openjdk-11 → maven:3.9-eclipse-temurin-17
-
-**Runtime Stage:**
-- FROM gcr.io/distroless/java11-debian11 → gcr.io/distroless/java17-debian12
+**Benefits:**
+- More concise
+- Returns unmodifiable list
+- Better performance
 
 ---
 
-## 5. Estimated Effort and Risk Assessment
+## 5. Dependency Updates
 
-### 5.1 Change Breakdown
+### 5.1 Maven POM Changes
 
-| Task | Effort | Risk | Priority | Dependencies |
-|------|--------|------|----------|--------------|
-| **Phase 1: Foundation** |
-| Update pom.xml (Java 17, Spring Boot 3.x) | 1 hour | LOW | P0 | None |
-| Update Dockerfile | 0.5 hours | LOW | P0 | None |
-| Replace javax.* → jakarta.* imports | 2 hours | MEDIUM | P0 | pom.xml update |
-| Update application.properties | 1 hour | LOW | P0 | Spring Boot 3.x |
-| Build and test compilation | 2 hours | MEDIUM | P0 | All above |
-| **Phase 2: Code Modernization** |
-| Convert PaymentRequest to Record | 2 hours | LOW | P1 | Phase 1 complete |
-| Convert PaymentResponse to Record | 2 hours | LOW | P1 | Phase 1 complete |
-| Update service layer for Records | 3 hours | MEDIUM | P1 | Records conversion |
-| Apply Switch Expressions | 1 hour | LOW | P2 | Phase 1 complete |
-| Apply Optional.isEmpty() | 1 hour | LOW | P2 | Phase 1 complete |
-| **Phase 3: Testing & Validation** |
-| Unit test updates | 4 hours | MEDIUM | P1 | Phase 2 complete |
-| Integration testing | 4 hours | MEDIUM | P1 | Phase 2 complete |
-| Performance testing | 2 hours | LOW | P2 | All above |
-| Documentation updates | 2 hours | LOW | P2 | All above |
-| **Optional: Advanced Features** |
-| Sealed classes for status hierarchy | 4 hours | MEDIUM | P3 | Phase 2 complete |
-| Text blocks for queries | 1 hour | LOW | P3 | Anytime |
-| Pattern matching enhancements | 2 hours | LOW | P3 | Anytime |
+**File:** `pom.xml`  
+**Impact:** HIGH  
+**Effort:** 2-3 hours  
+**Risk:** MEDIUM
 
-### 5.2 Total Effort Estimate
+#### 5.1.1 Java Version Properties
 
-| Phase | Estimated Time | Risk Level |
-|-------|---------------|------------|
-| Phase 1: Foundation | 6.5 hours | MEDIUM |
-| Phase 2: Code Modernization | 9 hours | MEDIUM |
-| Phase 3: Testing & Validation | 12 hours | MEDIUM |
-| **Total (Required)** | **27.5 hours** | **MEDIUM** |
-| Optional Advanced Features | 7 hours | LOW-MEDIUM |
-| **Grand Total** | **34.5 hours** | **MEDIUM** |
+```xml
+<!-- CURRENT (Lines 21-26) -->
+<properties>
+    <java.version>11</java.version>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+</properties>
 
-**Recommended Timeline:** 1-2 weeks with proper testing
+<!-- UPDATED -->
+<properties>
+    <java.version>17</java.version>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+</properties>
+```
 
----
+#### 5.1.2 Spring Boot Parent Version
 
-## 6. Recommended Order of Changes to Minimize Risk
+```xml
+<!-- CURRENT (Lines 8-13) -->
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.7.18</version>
+    <relativePath/>
+</parent>
 
-### Phase 1: Foundation (Day 1-2)
-**Goal:** Establish Java 17 + Spring Boot 3.x baseline
+<!-- UPDATED -->
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.2.5</version> <!-- Latest stable 3.x -->
+    <relativePath/>
+</parent>
+```
 
-1. **Create feature branch** (`feature/java-17-migration`)
-2. **Update pom.xml**
-   - Java version: 11 → 17
-   - Spring Boot: 2.7.18 → 3.2.5
-   - Maven compiler plugin: 3.8.1 → 3.11.0
-3. **Update Dockerfile**
-   - Base images: Java 11 → Java 17
-4. **Replace javax.* → jakarta.***
-   - Transaction.java (JPA annotations)
-   - PaymentRequest.java (validation annotations)
-   - PaymentController.java (validation annotations)
-5. **Update application.properties**
-   - Review Spring Boot 3.x property changes
-6. **Build and verify compilation**
-   ```bash
-   mvn clean compile
-   ```
-7. **Run existing tests**
-   ```bash
-   mvn test
-   ```
+**Note:** Spring Boot 3.2.5 is the latest stable version as of this plan. Check for newer versions at implementation time.
 
-**Checkpoint:** Application compiles and existing tests pass
+#### 5.1.3 Maven Compiler Plugin
 
-### Phase 2: Code Modernization (Day 3-4)
-**Goal:** Leverage Java 17 features for better code quality
+```xml
+<!-- CURRENT (Lines 92-100) -->
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.1</version>
+    <configuration>
+        <source>11</source>
+        <target>11</target>
+    </configuration>
+</plugin>
 
-1. **Convert PaymentRequest to Record**
-   - Remove Builder class
-   - Add static factory methods if needed
-   - Update all usages in controllers/services
-2. **Convert PaymentResponse to Record**
-   - Remove Builder class
-   - Add static factory methods (success/error)
-   - Update all usages
-3. **Apply Switch Expressions**
-   - PaymentService.getDeclineMessage()
-4. **Apply Optional.isEmpty()**
-   - PaymentService.capture()
-   - PaymentService.refund()
-   - PaymentController.getTransaction()
-5. **Code review and refactoring**
+<!-- UPDATED -->
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.11.0</version>
+    <configuration>
+        <source>17</source>
+        <target>17</target>
+        <release>17</release> <!-- Recommended for Java 9+ -->
+    </configuration>
+</plugin>
+```
 
-**Checkpoint:** All code compiles, manual testing passes
+#### 5.1.4 Dependency Version Management
 
-### Phase 3: Testing & Validation (Day 5-7)
-**Goal:** Ensure reliability and performance
+All Spring Boot dependencies will be automatically updated via the parent POM. However, verify compatibility:
 
-1. **Update unit tests**
-   - Test Record constructors
-   - Test factory methods
-   - Verify validation still works
-2. **Integration testing**
-   - Test all REST endpoints
-   - Verify database operations
-   - Test cache functionality
-3. **Performance testing**
-   - Compare startup time (Java 11 vs 17)
-   - Load testing with JMeter/Gatling
-   - Memory profiling
-4. **Documentation updates**
-   - Update README
-   - Update API documentation
-   - Update deployment guides
+| Dependency | Current (Boot 2.7.18) | Updated (Boot 3.2.5) | Notes |
+|-----------|----------------------|---------------------|-------|
+| Spring Web | 5.3.x | 6.1.x | Major version change |
+| Spring Data JPA | 2.7.x | 3.2.x | Major version change |
+| Hibernate | 5.6.x | 6.4.x | Major version change |
+| H2 Database | 2.1.x | 2.2.x | Minor update |
+| Caffeine | 3.1.x | 3.1.x | Compatible |
+| Micrometer | 1.10.x | 1.12.x | Minor update |
 
-**Checkpoint:** All tests pass, performance metrics acceptable
-
-### Phase 4 (Optional): Advanced Features (Day 8-10)
-**Goal:** Explore advanced Java 17 capabilities
-
-1. **Sealed classes for TransactionStatus**
-   - Design hierarchy
-   - Implement sealed interfaces
-   - Update service logic
-2. **Text blocks for complex strings**
-   - Apply to SQL queries
-   - Apply to error messages
-3. **Pattern matching enhancements**
-   - Exception handling
-   - Type checks
+**Action Items:**
+1. Remove explicit version declarations (let parent manage)
+2. Test H2 database compatibility
+3. Verify Caffeine cache behavior
+4. Check Micrometer Prometheus metrics
 
 ---
 
-## 7. Risk Assessment
+## 6. Configuration Changes
 
-### 7.1 High-Risk Areas
+### 6.1 Dockerfile Updates
 
-| Risk | Impact | Mitigation Strategy |
-|------|--------|---------------------|
-| **Spring Boot 3.x Breaking Changes** | HIGH | Thorough testing of all endpoints, review Spring Boot 3.x migration guide |
-| **Jakarta EE Migration** | HIGH | Automated find/replace with verification, comprehensive testing |
-| **JPA Entity Compatibility** | MEDIUM | Keep Transaction as mutable entity, test persistence layer thoroughly |
-| **Cache Configuration Changes** | MEDIUM | Verify Caffeine cache compatibility with Spring Boot 3.x |
-| **Dependency Conflicts** | MEDIUM | Use `mvn dependency:tree` to identify conflicts |
+**File:** `Dockerfile`  
+**Impact:** HIGH  
+**Effort:** 1 hour  
+**Risk:** LOW
 
-### 7.2 Low-Risk Areas
+#### 6.1.1 Build Stage
 
-| Area | Reason |
-|------|--------|
-| Records conversion | Immutable data carriers, well-tested feature |
-| Switch expressions | Syntactic sugar, no runtime changes |
-| Optional improvements | Minor API enhancements |
-| Text blocks | String literals, no behavioral changes |
+```dockerfile
+# CURRENT (Line 11)
+FROM maven:3.8-openjdk-11 AS builder
 
----
+# UPDATED
+FROM maven:3.9-eclipse-temurin-17 AS builder
+```
 
-## 8. Testing Strategy
+**Rationale:**
+- Maven 3.9 is the latest stable version
+- Eclipse Temurin is the recommended OpenJDK distribution
+- Java 17 LTS support
 
-### 8.1 Test Categories
+#### 6.1.2 Runtime Stage
 
-| Category | Focus | Tools |
-|----------|-------|-------|
-| **Unit Tests** | Individual components, Records, Services | JUnit 5, Mockito |
-| **Integration Tests** | REST endpoints, Database, Cache | Spring Boot Test, TestContainers |
-| **Performance Tests** | Throughput, Latency, Memory | JMeter, VisualVM |
-| **Compatibility Tests** | Docker, Kubernetes deployment | Docker, kubectl |
+```dockerfile
+# CURRENT (Line 44)
+FROM gcr.io/distroless/java11-debian11
 
-### 8.2 Test Checklist
+# UPDATED
+FROM gcr.io/distroless/java17-debian12
+```
 
-- [ ] All REST endpoints return correct responses
-- [ ] Validation annotations work with Records
-- [ ] JPA persistence operations succeed
-- [ ] Cache operations function correctly
-- [ ] Actuator endpoints accessible
-- [ ] Prometheus metrics exported
-- [ ] Docker image builds successfully
-- [ ] Application starts in < 30 seconds
-- [ ] Memory usage within acceptable limits
-- [ ] No regression in transaction processing time
+**Rationale:**
+- Java 17 runtime
+- Debian 12 (Bookworm) is the latest stable
+- Maintains distroless security benefits
 
----
+### 6.2 Application Properties
 
-## 9. Success Criteria
+**File:** `application.properties`  
+**Impact:** LOW  
+**Effort:** 30 minutes  
+**Risk:** LOW
 
-### 9.1 Functional Requirements
-
-- All existing features work identically
-- No breaking changes to REST API
-- Database schema unchanged
-- Cache behavior consistent
-
-### 9.2 Non-Functional Requirements
-
-- Startup time: < 30 seconds (target: 20-25s)
-- Memory usage: < 512MB heap (target: 400MB)
-- Transaction processing: < 500ms p95 (target: 300ms)
-- Code reduction: ~30% fewer lines (Records)
-- Build time: < 2 minutes
-
-### 9.3 Quality Metrics
-
-- Test coverage: > 80%
-- Zero critical vulnerabilities
-- SonarQube quality gate: PASSED
-- All compiler warnings resolved
+**Action Items:**
+1. Review for deprecated Spring Boot 2.x properties
+2. Update actuator endpoint configurations if needed
+3. Verify H2 console configuration (if used)
+4. Check logging configuration compatibility
 
 ---
 
-## Appendix A: File-by-File Change Summary
+## 7. Implementation Roadmap
 
-| File | Changes Required | Effort | Risk |
-|------|------------------|--------|------|
-| **pom.xml** | Java 17, Spring Boot 3.2.5, Maven plugin | 1h | LOW |
-| **Dockerfile** | Java 17 base images | 0.5h | LOW |
-| **PaymentRequest.java** | Convert to Record, jakarta.validation | 2h | LOW |
-| **PaymentResponse.java** | Convert to Record | 2h | LOW |
-| **Transaction.java** | jakarta.persistence imports only | 0.5h | LOW |
-| **TransactionStatus.java** | Optional: Sealed classes | 4h | MEDIUM |
-| **PaymentService.java** | Switch expressions, Optional.isEmpty() | 2h | LOW |
-| **PaymentController.java** | jakarta.validation imports | 0.5h | LOW |
-| **AdminController.java** | No changes required | 0h | NONE |
-| **CacheService.java** | No changes required | 0h | NONE |
-| **CacheConfig.java** | Verify Spring Boot 3.x compatibility | 0.5h | LOW |
-| **TransactionRepository.java** | No changes required | 0h | NONE |
-| **application.properties** | Spring Boot 3.x property updates | 1h | LOW |
+### Phase 1: Preparation (2-3 days)
+**Effort:** 4-6 hours
+
+1. Create feature branch: `feature/java-17-migration`
+2. Tag current version: `v1.0.0-java11`
+3. Set up Java 17 environment
+4. Create comprehensive test suite
+5. Review Spring Boot 3.x migration guide
+
+### Phase 2: Core Migration (3-4 days)
+**Effort:** 12-16 hours
+
+1. Update pom.xml (Java 17, Spring Boot 3.2.x)
+2. Update Dockerfile base images
+3. Migrate javax → jakarta namespaces
+4. Fix Spring Boot 3.x breaking changes
+5. Integration testing
+
+### Phase 3: Java 17 Feature Adoption (3-5 days)
+**Effort:** 8-12 hours
+
+1. Convert DTOs to records
+2. Modernize switch statements
+3. Apply pattern matching
+4. Consider sealed classes (optional)
+
+### Phase 4: Testing & Validation (2-3 days)
+**Effort:** 8-12 hours
+
+1. Unit testing
+2. Integration testing
+3. Performance testing
+4. Docker testing
+5. Documentation update
+
+### Phase 5: Deployment & Monitoring (1-2 days)
+**Effort:** 4-8 hours
+
+1. Staging deployment
+2. Production deployment
+3. Monitoring and validation
+
+**Total Estimated Effort:** 36-54 hours
 
 ---
 
-## Appendix B: Command Reference
+## 8. Risk Assessment
 
-### Build Commands
+### 8.1 Risk Matrix
+
+| Risk | Probability | Impact | Severity | Mitigation |
+|------|------------|--------|----------|------------|
+| Spring Boot 3.x breaking changes | HIGH | HIGH | **CRITICAL** | Thorough testing, staged rollout |
+| javax → jakarta migration issues | MEDIUM | MEDIUM | **HIGH** | Automated testing, careful review |
+| Performance regression | LOW | MEDIUM | **MEDIUM** | Baseline metrics, load testing |
+| Docker image issues | LOW | LOW | **LOW** | Test in staging first |
+| Dependency conflicts | MEDIUM | MEDIUM | **MEDIUM** | Dependency analysis |
+
+### 8.2 Critical Risks
+
+#### Risk 1: Spring Boot 3.x Breaking Changes
+**Mitigation:**
+- Comprehensive testing in staging
+- Review Spring Boot 3.x migration guide
+- Staged rollout (canary deployment)
+- Quick rollback capability
+
+#### Risk 2: javax → jakarta Namespace Migration
+**Mitigation:**
+- Use IDE refactoring tools
+- Automated search for javax imports
+- Comprehensive compilation checks
+- Unit and integration testing
+
+---
+
+## 9. Testing Strategy
+
+### 9.1 Test Levels
+
+#### Unit Tests
+- Coverage Target: 80%+
+- Tools: JUnit 5, Mockito
+- Command: `mvn test`
+
+#### Integration Tests
+- API endpoints
+- Database integration
+- Cache integration
+- Command: `mvn verify`
+
+#### Performance Tests
+- Load testing (100 concurrent users)
+- Stress testing
+- Endurance testing (2 hours)
+- Tools: JMeter, Gatling
+
+### 9.2 Test Data
+
+**Test Cards:**
+```
+Visa:       4263970000005262 (Always approve)
+MasterCard: 5425230000004415 (Always approve)
+Amex:       374101000000608  (Always approve)
+```
+
+---
+
+## 10. Rollback Plan
+
+### 10.1 Rollback Triggers
+
+**Immediate Rollback Required If:**
+1. Application fails to start
+2. Critical API endpoints non-functional
+3. Data corruption detected
+4. Performance degradation >50%
+5. Error rate >5%
+
+### 10.2 Rollback Procedure
+
+**For Docker Deployment:**
 ```bash
-# Clean build
+# Stop current container
+docker stop payment-app
+
+# Start previous version
+docker run -d --name payment-app \
+  -p 8080:8080 \
+  payment-app:v1.0.0-java11
+```
+
+**For Kubernetes:**
+```bash
+kubectl rollout undo deployment/payment-app
+```
+
+---
+
+## Appendix: Quick Reference
+
+### Key Commands
+
+```bash
+# Build
 mvn clean package
 
-# Skip tests
-mvn clean package -DskipTests
-
-# Run tests only
+# Test
 mvn test
-
-# Check dependencies
-mvn dependency:tree
-
-# Update dependencies
-mvn versions:display-dependency-updates
-```
-
-### Docker Commands
-```bash
-# Build image
-docker build -t payment-app:1.0.0-java17 .
-
-# Run container
-docker run -p 8080:8080 payment-app:1.0.0-java17
-
-# Check logs
-docker logs <container-id>
-```
-
-### Testing Commands
-```bash
-# Run specific test
-mvn test -Dtest=PaymentServiceTest
-
-# Integration tests
 mvn verify
 
-# Performance test
-mvn gatling:test
+# Run
+mvn spring-boot:run
+
+# Docker
+docker build -t payment-app:java17 .
+docker run -p 8080:8080 payment-app:java17
 ```
 
+### Important URLs
+
+- Application: http://localhost:8080
+- Health: http://localhost:8080/actuator/health
+- Metrics: http://localhost:8080/actuator/prometheus
+
+### Effort Summary
+
+| Phase | Effort (hours) | Risk |
+|-------|----------------|------|
+| Preparation | 4-6 | LOW |
+| Core Migration | 12-16 | MEDIUM |
+| Feature Adoption | 8-12 | LOW |
+| Testing | 8-12 | MEDIUM |
+| Deployment | 4-8 | MEDIUM |
+| **TOTAL** | **36-54** | **MEDIUM** |
+
 ---
 
-**Document Status:** READY FOR REVIEW  
-**Next Steps:** Review with team, obtain approval, begin Phase 1  
-**Approval Required:** Tech Lead, DevOps Lead
-
----
-
-*End of Java 17 Modernization Plan*
+**End of Document**
