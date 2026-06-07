@@ -479,20 +479,6 @@
       }
       .comparison-grid { grid-template-columns: 1fr; }
       .code-panel--java11 { border-right: none; border-bottom: 1px solid var(--border-color); }
-      
-      /* Responsive card grids - stack on mobile */
-      #frontend-cards-container,
-      #test-cards-container {
-        grid-template-columns: 1fr !important;
-      }
-    }
-
-    /* Tablet: 2 columns */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      #frontend-cards-container,
-      #test-cards-container {
-        grid-template-columns: repeat(2, 1fr) !important;
-      }
     }
   </style>
 </head>
@@ -572,14 +558,13 @@
             <h3>Repository bundle</h3>
             <p>This placeholder is reserved for the Box folder link that will be added later. The package should include the application source and the installation helper scripts from the lab assets.</p>
           </div>
-          <a href="https://github.com/tanyaaton/th-ktcs-bob-workshop"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Download Java Modernization Repository from GitHub"
+          <a href="../sample-code/Java-Modernization-Repo.zip"
+             download
+             aria-label="Download Java Modernization Repository"
              style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #0f62fe; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; transition: background 0.2s; white-space: nowrap;"
              onmouseover="this.style.background='#0353e9'"
              onmouseout="this.style.background='#0f62fe'">
-            Download Demo from GitHub
+            Download Java-Modernization-Repo
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
               <polyline points="15 3 21 3 21 9"></polyline>
@@ -610,53 +595,13 @@
         <div style="margin-top: 3rem;">
           <h3 id="prerequisites" style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Prerequisites</h3>
           <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-            Now that you've downloaded the workshop materials, let's ensure your environment is ready. Follow these steps to set up IBM ID, Bob IDE, Java, and Maven for a smooth workshop experience.
+            Before starting the lab, make sure your workstation has Java, Maven, and Bob IDE ready. The included shell and batch scripts simplify the installation and user-level environment setup.
           </p>
         </div>
 
         <div class="accordion-group">
           <details class="accordion" open>
-            <summary>Step 1: Register IBM ID</summary>
-            <div class="accordion__body">
-              <p style="margin-bottom: 1rem;">You'll need an IBM ID to access Bob IDE and other IBM Cloud services.</p>
-              <a href="https://www.ibm.com/account/reg/us-en/signup?formid=urx-19776"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #0f62fe; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; transition: background 0.2s;"
-                 onmouseover="this.style.background='#0353e9'"
-                 onmouseout="this.style.background='#0f62fe'">
-                Register IBM ID
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                  <polyline points="15 3 21 3 21 9"></polyline>
-                  <line x1="10" y1="14" x2="21" y2="3"></line>
-                </svg>
-              </a>
-            </div>
-          </details>
-
-          <details class="accordion" open>
-            <summary>Step 2: Download and Install Bob IDE</summary>
-            <div class="accordion__body">
-              <p style="margin-bottom: 1rem;">Bob IDE is your AI-powered development environment for this workshop.</p>
-              <a href="https://bob.ibm.com/download"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #0f62fe; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; transition: background 0.2s;"
-                 onmouseover="this.style.background='#0353e9'"
-                 onmouseout="this.style.background='#0f62fe'">
-                Download Bob IDE
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                  <polyline points="15 3 21 3 21 9"></polyline>
-                  <line x1="10" y1="14" x2="21" y2="3"></line>
-                </svg>
-              </a>
-            </div>
-          </details>
-
-          <details class="accordion" open>
-            <summary>Step 3: Verify Required Software</summary>
+            <summary>Required software and environment</summary>
             <div class="accordion__body">
               <ul class="checklist">
                 <li>Bob IDE installed and accessible</li>
@@ -668,7 +613,7 @@
           </details>
 
           <details class="accordion">
-            <summary>Step 4: Install Java and Maven using the helper scripts</summary>
+            <summary>Install Java and Maven using the helper scripts</summary>
             <div class="accordion__body">
               <p>After downloading the repository materials, run the matching helper script for your operating system. These scripts are located in the <code>java-maven-install-shell-scripts/</code> folder.</p>
 
@@ -862,7 +807,7 @@ mvn -version</pre>
             </ul>
           </div>
 
-          <!-- Business Value 4.1
+          <!-- Business Value 4.1 -->
           <div class="business-value-section">
             <h4 class="business-value-title">Business Value</h4>
             <div class="business-value-grid">
@@ -898,7 +843,7 @@ mvn -version</pre>
             <div class="business-value-summary">
               <strong>Impact:</strong> 90%+ reduction in onboarding time • Accelerated modernization planning • Improved team productivity
             </div>
-          </div> -->
+          </div>
           <!-- CODE DOCUMENTATION PART -->
           <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border-subtle);">
             <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">Code Documentation</h4>
@@ -950,7 +895,7 @@ mvn -version</pre>
           </ul>
         </div>
 
-        <!-- Business Value 4.2
+        <!-- Business Value 4.2 -->
         <div class="business-value-section">
           <h4 class="business-value-title">Business Value</h4>
           <div class="business-value-grid">
@@ -986,7 +931,7 @@ mvn -version</pre>
           <div class="business-value-summary">
             <strong>Impact:</strong> 95%+ reduction in documentation time • Always current • Improved knowledge sharing • Better onboarding experience
           </div>
-          </div> -->
+          </div>
         </article>
 
       <!-- 2.2 JAVA MIGRATION -->
@@ -1007,75 +952,20 @@ mvn -version</pre>
         <div class="migration-grid">
           <article class="migration-card">
             <h3>Step 1 — Create the modernization action plan</h3>
-            <div style="background: #fff3cd; border-left: 4px solid #f1c21b; padding: 1rem; margin-bottom: 1.5rem; border-radius: 4px;">
-              <strong>🎯 Interactive Exercise:</strong> Instead of copying a pre-made prompt, you'll learn to create your own AI prompt by understanding what information the AI needs!
-            </div>
-            
-            <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
-              Now that we've set up our environment and explored the demo application, let's create a strategic plan for modernization. Below is a flow diagram showing what we want the AI to analyze and plan for us.
-            </p>
-
-            <!-- Flow Diagram - Horizontal Layout -->
-            <div style="background: #f4f4f4; padding: 2rem; border-radius: 8px; margin-bottom: 2rem; overflow-x: auto;">
-              <h4 style="text-align: center; margin-bottom: 1.5rem; color: var(--text-primary);">Modernization Plan Requirements</h4>
-              <div style="display: flex; gap: 1rem; min-width: 1200px; justify-content: center;">
-                <div style="background: white; padding: 0.75rem; border-radius: 6px; border-top: 4px solid #0f62fe; flex: 1; min-width: 180px;">
-                  <strong style="font-size: 14px;">1. Summary of modifications</strong>
-                  <div style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 12px;">
-                    → <strong>dependencies</strong>, <strong>APIs</strong>, syntax, <strong>config</strong>
-                  </div>
-                </div>
-                <div style="background: white; padding: 0.75rem; border-radius: 6px; border-top: 4px solid #0f62fe; flex: 1; min-width: 180px;">
-                  <strong style="font-size: 14px;">2. List of obsolete interfaces</strong>
-                  <div style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 12px;">
-                    → <strong>deprecated</strong> or removed
-                  </div>
-                </div>
-                <div style="background: white; padding: 0.75rem; border-radius: 6px; border-top: 4px solid #0f62fe; flex: 1; min-width: 180px;">
-                  <strong style="font-size: 14px;">3. New Java 17 capabilities</strong>
-                  <div style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 12px;">
-                    → <strong>records</strong>, sealed classes, <strong>text blocks</strong>, pattern matching
-                  </div>
-                </div>
-                <div style="background: white; padding: 0.75rem; border-radius: 6px; border-top: 4px solid #0f62fe; flex: 1; min-width: 180px;">
-                  <strong style="font-size: 14px;">4. Updated build configuration</strong>
-                  <div style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 12px;">
-                    → <strong>pom.xml</strong> changes required
-                  </div>
-                </div>
-                <div style="background: white; padding: 0.75rem; border-radius: 6px; border-top: 4px solid #0f62fe; flex: 1; min-width: 180px;">
-                  <strong style="font-size: 14px;">5. For every change, approximate the <strong>effort</strong> and <strong>risk</strong> from the action</strong>
-                  <div style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 12px;">
-                    → time needed, potential issues
-                  </div>
-                </div>
-                <div style="background: white; padding: 0.75rem; border-radius: 6px; border-top: 4px solid #0f62fe; flex: 1; min-width: 180px;">
-                  <strong style="font-size: 14px;">6. Recommended sequence to minimize <strong>risk</strong></strong>
-                  <div style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 12px;">
-                    → safest progression path
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Interactive Fill-in-the-Blank Prompt -->
             <div class="prompt-card">
               <div class="prompt-card__header">
-                <span class="prompt-card__title">📝 Build Your Own Prompt - Java modernization action plan</span>
-                <button class="copy-btn" data-copy-target="prompt-migration-plan" id="copy-plan-btn" disabled style="opacity: 0.5; cursor: not-allowed;">Copy (Complete the prompt first)</button>
+                <span class="prompt-card__title">Java modernization action plan</span>
+                <button class="copy-btn" data-copy-target="prompt-migration-plan">Copy</button>
               </div>
-              <div style="padding: 1rem; background: #fff3cd; border-radius: 4px; margin-bottom: 1rem;">
-                <strong>Instructions:</strong> Fill in the blanks below to create your modernization prompt. Type your answers in each blank field.
-              </div>
-              <pre class="prompt-body" id="prompt-migration-plan" style="white-space: pre-wrap; line-height: 1.8;">Analyze the payment application and create a detailed action plan to modernize it from Java 11 to Java 17.
+              <pre class="prompt-body" id="prompt-migration-plan">Analyze the payment application and create a detailed action plan to modernize it from Java 11 to Java 17.
 
 The plan should include:
-1. Summary of changes required (<input type="text" class="prompt-blank" data-answer="dependencies" placeholder="________" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 120px;">, <input type="text" class="prompt-blank" data-answer="APIs" placeholder="____" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 60px;">, syntax, <input type="text" class="prompt-blank" data-answer="config" placeholder="______" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 80px;">)
-2. List of <input type="text" class="prompt-blank" data-answer="deprecated" placeholder="__________" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 120px;"> or removed APIs that need replacing
-3. New Java 17 features that can improve the codebase (<input type="text" class="prompt-blank" data-answer="records" placeholder="_______" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 90px;">, sealed classes, <input type="text" class="prompt-blank" data-answer="text blocks" placeholder="_____ ______" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 120px;">, pattern matching)
-4. Updated <input type="text" class="prompt-blank" data-answer="pom.xml" placeholder="_______" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 90px;"> changes required (Java version, Spring Boot compatibility)
-5. Estimated <input type="text" class="prompt-blank" data-answer="effort" placeholder="______" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 80px;"> and risk for each change
-6. Recommended order of changes to minimize <input type="text" class="prompt-blank" data-answer="risk" placeholder="____" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 60px;">
+1. Summary of changes required (dependencies, APIs, syntax, config)
+2. List of deprecated or removed APIs that need replacing
+3. New Java 17 features that can improve the codebase (records, sealed classes, text blocks, pattern matching)
+4. Updated pom.xml changes required (Java version, Spring Boot compatibility)
+5. Estimated effort and risk for each change
+6. Recommended order of changes to minimize risk
 
 Do not make any code changes yet. Produce the plan as: JavaModernizationPlan.md</pre>
             </div>
@@ -1088,55 +978,31 @@ Do not make any code changes yet. Produce the plan as: JavaModernizationPlan.md<
 
           <article class="migration-card">
             <h3>Step 2 — Execute the modernization</h3>
-            <div style="background: #fff3cd; border-left: 4px solid #f1c21b; padding: 1rem; margin-bottom: 1.5rem; border-radius: 4px;">
-              <strong>🎯 Interactive Exercise:</strong> Complete the execution prompt by selecting the correct keywords from the word bank below!
-            </div>
-            
             <p class="section-lead">
-              Great job creating the action plan! Now that we have a clear roadmap of what needs to be modernized and how Java 17 features can improve our code, let's instruct Bob to execute the plan systematically.
+              Now we'll ask Bob to execute the plan. Watch it work through the codebase systematically — updating dependencies, replacing deprecated APIs, and adopting Java 17 features like records and text blocks.
             </p>
-
-            <!-- Word Bank -->
-            <div style="background: #e8f4fd; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; border: 2px dashed #0f62fe;">
-              <h4 style="margin-bottom: 1rem; color: var(--text-primary);">📚 Word Bank - Click to fill blanks:</h4>
-              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-                <button class="word-bank-item" onclick="fillBlank(this, 'pom.xml')" style="padding: 0.5rem 1rem; background: white; border: 2px solid #0f62fe; border-radius: 4px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 13px; transition: all 0.2s;" onmouseover="this.style.background='#0f62fe'; this.style.color='white'" onmouseout="if(!this.disabled) { this.style.background='white'; this.style.color='inherit'; }">pom.xml</button>
-                <button class="word-bank-item" onclick="fillBlank(this, 'APIs')" style="padding: 0.5rem 1rem; background: white; border: 2px solid #0f62fe; border-radius: 4px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 13px; transition: all 0.2s;" onmouseover="this.style.background='#0f62fe'; this.style.color='white'" onmouseout="if(!this.disabled) { this.style.background='white'; this.style.color='inherit'; }">APIs</button>
-                <button class="word-bank-item" onclick="fillBlank(this, 'Records')" style="padding: 0.5rem 1rem; background: white; border: 2px solid #0f62fe; border-radius: 4px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 13px; transition: all 0.2s;" onmouseover="this.style.background='#0f62fe'; this.style.color='white'" onmouseout="if(!this.disabled) { this.style.background='white'; this.style.color='inherit'; }">Records</button>
-                <button class="word-bank-item" onclick="fillBlank(this, 'Text blocks')" style="padding: 0.5rem 1rem; background: white; border: 2px solid #0f62fe; border-radius: 4px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 13px; transition: all 0.2s;" onmouseover="this.style.background='#0f62fe'; this.style.color='white'" onmouseout="if(!this.disabled) { this.style.background='white'; this.style.color='inherit'; }">Text blocks</button>
-                <button class="word-bank-item" onclick="fillBlank(this, 'Lombok')" style="padding: 0.5rem 1rem; background: white; border: 2px solid #0f62fe; border-radius: 4px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 13px; transition: all 0.2s;" onmouseover="this.style.background='#0f62fe'; this.style.color='white'" onmouseout="if(!this.disabled) { this.style.background='white'; this.style.color='inherit'; }">Lombok</button>
-                <button class="word-bank-item" onclick="fillBlank(this, 'multi-line')" style="padding: 0.5rem 1rem; background: white; border: 2px solid #0f62fe; border-radius: 4px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 13px; transition: all 0.2s;" onmouseover="this.style.background='#0f62fe'; this.style.color='white'" onmouseout="if(!this.disabled) { this.style.background='white'; this.style.color='inherit'; }">multi-line</button>
-                <button class="word-bank-item" onclick="fillBlank(this, 'payment-app')" style="padding: 0.5rem 1rem; background: white; border: 2px solid #0f62fe; border-radius: 4px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 13px; transition: all 0.2s;" onmouseover="this.style.background='#0f62fe'; this.style.color='white'" onmouseout="if(!this.disabled) { this.style.background='white'; this.style.color='inherit'; }">payment-app</button>
-                <button class="word-bank-item" onclick="fillBlank(this, 'payment-app-java17')" style="padding: 0.5rem 1rem; background: white; border: 2px solid #0f62fe; border-radius: 4px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 13px; transition: all 0.2s;" onmouseover="this.style.background='#0f62fe'; this.style.color='white'" onmouseout="if(!this.disabled) { this.style.background='white'; this.style.color='inherit'; }">payment-app-java17</button>
-                <button class="word-bank-item" onclick="fillBlank(this, 'mvn spring-boot:run')" style="padding: 0.5rem 1rem; background: white; border: 2px solid #0f62fe; border-radius: 4px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 13px; transition: all 0.2s;" onmouseover="this.style.background='#0f62fe'; this.style.color='white'" onmouseout="if(!this.disabled) { this.style.background='white'; this.style.color='inherit'; }">mvn spring-boot:run</button>
-              </div>
-            </div>
-
             <div class="prompt-card">
               <div class="prompt-card__header">
-                <span class="prompt-card__title">📝 Build Your Own Prompt - Execute the modernization plan</span>
-                <button class="copy-btn" data-copy-target="prompt-migration-exec" id="copy-exec-btn" disabled style="opacity: 0.5; cursor: not-allowed;">Copy (Complete the prompt first)</button>
+                <span class="prompt-card__title">Execute the modernization plan</span>
+                <button class="copy-btn" data-copy-target="prompt-migration-exec">Copy</button>
               </div>
-              <div style="padding: 1rem; background: #fff3cd; border-radius: 4px; margin-bottom: 1rem;">
-                <strong>Instructions:</strong> Click words from the word bank above to fill in the blanks below.
-              </div>
-              <pre class="prompt-body" id="prompt-migration-exec" style="white-space: pre-wrap; line-height: 1.8;">Execute the JavaModernizationPlan.md — modernize the payment application from Java 11 to Java 17.
+              <pre class="prompt-body" id="prompt-migration-exec">Execute the JavaModernizationPlan.md — modernize the payment application from Java 11 to Java 17.
 
 Apply all changes identified in the plan:
-1. Update <span class="exec-blank" data-answer="pom.xml" style="display: inline-block; min-width: 80px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">_______</span> — Java version to 17, Spring Boot and dependency versions
-2. Replace any deprecated or removed <span class="exec-blank" data-answer="APIs" style="display: inline-block; min-width: 60px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">____</span> with Java 17 equivalents
+1. Update pom.xml — Java version to 17, Spring Boot and dependency versions
+2. Replace any deprecated or removed APIs with Java 17 equivalents
 3. Apply Java 17 features where they improve the code:
-   - <span class="exec-blank" data-answer="Records" style="display: inline-block; min-width: 80px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">_______</span> for immutable model classes
-   - <span class="exec-blank" data-answer="Text blocks" style="display: inline-block; min-width: 100px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">____ ______</span> for <span class="exec-blank" data-answer="multi-line" style="display: inline-block; min-width: 90px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">_____-____</span> strings
+   - Records for immutable model classes
+   - Text blocks for multi-line strings
    - Pattern matching for instanceof checks
    - Sealed classes where appropriate
-4. Remove <span class="exec-blank" data-answer="Lombok" style="display: inline-block; min-width: 80px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">______</span> if present — replace with Java records or explicit methods
-5. Verify the application still compiles and runs with: <span class="exec-blank" data-answer="mvn spring-boot:run" style="display: inline-block; min-width: 150px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">___ ______-____:___</span>
+4. Remove Lombok if present — replace with Java records or explicit methods
+5. Verify the application still compiles and runs with: mvn spring-boot:run
 
 Output the modernized application in a new folder alongside the original:
 
-<span class="exec-blank" data-answer="payment-app" style="display: inline-block; min-width: 120px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">___________</span>/          ← original Java 11 (do not modify)
-<span class="exec-blank" data-answer="payment-app-java17" style="display: inline-block; min-width: 180px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">___________-______</span>/   ← modernized Java 17
+payment-app/          ← original Java 11 (do not modify)
+payment-app-java17/   ← modernized Java 17
 ├── src/
 │   └── main/
 │       ├── java/com/demo/payment/
@@ -1199,7 +1065,7 @@ Do not run the application. I will verify it myself.</pre>
                   </div>
                   <span class="code-badge code-badge--java11">Java 11</span>
                 </div>
-                <div class="code-panel__content" style="max-height: 400px; overflow-y: auto;">
+                <div class="code-panel__content">
                   <pre><code>public class PaymentRequest {
     @NotBlank(message = "Card number is required")
     private String cardNumber;
@@ -1299,23 +1165,8 @@ Do not run the application. I will verify it myself.</pre>
                   </div>
                   <span class="code-badge code-badge--java17">Java 17</span>
                 </div>
-                
-                <!-- Try It Yourself Section -->
-                <div style="background: #fff3cd; border-left: 4px solid #f1c21b; padding: 1rem; margin: 1rem; border-radius: 4px;">
-                  <strong>🎯 Try It Yourself:</strong> How would you modernize this Java 11 class using Java 17 records? Type your answer below!
-                </div>
-                <div style="padding: 0 1rem 1rem 1rem;">
-                  <textarea id="example1-input" placeholder="Type your Java 17 record implementation here..." style="width: 100%; min-height: 200px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 1rem; border: 2px solid #0f62fe; border-radius: 4px; background: #f4f4f4;"></textarea>
-                  <button onclick="revealExample1()" id="reveal-btn-1" style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: #0f62fe; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; display: none;">Show Correct Answer</button>
-                </div>
-
-                <!-- Reveal Answer Section (Hidden Initially) -->
-                <div id="example1-answer" style="display: none;">
-                  <div style="background: #d0e2ff; border-left: 4px solid #0f62fe; padding: 1rem; margin: 0 1rem 1rem 1rem; border-radius: 4px;">
-                    <strong>✅ Correct Answer:</strong>
-                  </div>
-                  <div class="code-panel__content" style="max-height: 400px; overflow-y: auto;">
-                    <pre><code>/**
+                <div class="code-panel__content">
+                  <pre><code>/**
  * Payment request record using Java 17 features.
  * Records provide immutability, automatic
  * equals/hashCode/toString, and compact syntax.
@@ -1342,23 +1193,11 @@ public record PaymentRequest(
         // Additional custom validation can be added here
     }
 }</code></pre>
-                  </div>
-                  
-                  <!-- Attention-Grabbing Metrics -->
-                  <div style="background: linear-gradient(135deg, #24a148 0%, #198038 100%); color: white; padding: 2rem; margin: 1rem; border-radius: 8px; text-align: center;">
-                    <div style="font-size: 48px; font-weight: 700; margin-bottom: 0.5rem;">74%</div>
-                    <div style="font-size: 20px; font-weight: 600; margin-bottom: 1rem;">LESS CODE</div>
-                    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem;">
-                      <div>
-                        <div style="font-size: 32px; font-weight: 700;">138 → 36</div>
-                        <div style="font-size: 14px; opacity: 0.9;">Lines of Code</div>
-                      </div>
-                      <div>
-                        <div style="font-size: 32px; font-weight: 700;">102</div>
-                        <div style="font-size: 14px; opacity: 0.9;">Lines Saved</div>
-                      </div>
-                    </div>
-                  </div>
+                </div>
+                <div class="code-panel__metrics">
+                  <span class="metric">Lines: <strong>36</strong></span>
+                  <span class="metric improvement">Reduction: <strong>74% less code</strong></span>
+                  <span class="metric improvement">Saved: <strong>102 lines</strong></span>
                 </div>
               </div>
             </div>
@@ -1379,7 +1218,7 @@ public record PaymentRequest(
                   </div>
                   <span class="code-badge code-badge--java11">Java 11</span>
                 </div>
-                <div class="code-panel__content" style="max-height: 400px; overflow-y: auto;">
+                <div class="code-panel__content">
                   <pre><code>public class PaymentResponse {
     private String transactionId;
     private TransactionStatus status;
@@ -1469,23 +1308,8 @@ public record PaymentRequest(
                   </div>
                   <span class="code-badge code-badge--java17">Java 17</span>
                 </div>
-                
-                <!-- Try It Yourself Section -->
-                <div style="background: #fff3cd; border-left: 4px solid #f1c21b; padding: 1rem; margin: 1rem; border-radius: 4px;">
-                  <strong>🎯 Try It Yourself:</strong> How would you create a Java 17 record with factory methods? Type your answer below!
-                </div>
-                <div style="padding: 0 1rem 1rem 1rem;">
-                  <textarea id="example2-input" placeholder="Type your Java 17 record with factory methods here..." style="width: 100%; min-height: 200px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 1rem; border: 2px solid #0f62fe; border-radius: 4px; background: #f4f4f4;"></textarea>
-                  <button onclick="revealExample2()" id="reveal-btn-2" style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: #0f62fe; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; display: none;">Show Correct Answer</button>
-                </div>
-
-                <!-- Reveal Answer Section (Hidden Initially) -->
-                <div id="example2-answer" style="display: none;">
-                  <div style="background: #d0e2ff; border-left: 4px solid #0f62fe; padding: 1rem; margin: 0 1rem 1rem 1rem; border-radius: 4px;">
-                    <strong>✅ Correct Answer:</strong>
-                  </div>
-                  <div class="code-panel__content" style="max-height: 400px; overflow-y: auto;">
-                    <pre><code>/**
+                <div class="code-panel__content">
+                  <pre><code>/**
  * Payment response record with factory methods.
  * Combines immutability with flexible construction.
  */
@@ -1530,23 +1354,11 @@ public record PaymentResponse(
         );
     }
 }</code></pre>
-                  </div>
-                  
-                  <!-- Attention-Grabbing Metrics -->
-                  <div style="background: linear-gradient(135deg, #24a148 0%, #198038 100%); color: white; padding: 2rem; margin: 1rem; border-radius: 8px; text-align: center;">
-                    <div style="font-size: 48px; font-weight: 700; margin-bottom: 0.5rem;">65%</div>
-                    <div style="font-size: 20px; font-weight: 600; margin-bottom: 1rem;">LESS CODE</div>
-                    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem;">
-                      <div>
-                        <div style="font-size: 32px; font-weight: 700;">136 → 48</div>
-                        <div style="font-size: 14px; opacity: 0.9;">Lines of Code</div>
-                      </div>
-                      <div>
-                        <div style="font-size: 32px; font-weight: 700;">88</div>
-                        <div style="font-size: 14px; opacity: 0.9;">Lines Saved</div>
-                      </div>
-                    </div>
-                  </div>
+                </div>
+                <div class="code-panel__metrics">
+                  <span class="metric">Lines: <strong>48</strong></span>
+                  <span class="metric improvement">Reduction: <strong>65% less code</strong></span>
+                  <span class="metric improvement">Saved: <strong>88 lines</strong></span>
                 </div>
               </div>
             </div>
@@ -1557,7 +1369,7 @@ public record PaymentResponse(
           </div>
         </div>
 
-        <!-- Business Value 4.3
+        <!-- Business Value 4.3 -->
         <div class="business-value-section">
           <h4 class="business-value-title">Business Value</h4>
           <div class="business-value-grid">
@@ -1595,7 +1407,7 @@ public record PaymentResponse(
             <br><br>
             One service modernized in minutes. Now imagine doing this across 200 services.
           </div>
-        </div> -->
+        </div>
 
         <!-- Optional Validation -->
         <div class="callout callout--info" style="margin-top: 2rem;">
@@ -1652,69 +1464,30 @@ mvn spring-boot:run</code></pre>
           </p>
         </div>
 
-        <!-- Instruction: Assemble the prompt from cards below -->
-        <div class="callout callout--tip" style="margin-top: 1rem;">
-          <div class="callout__label">📝 Interactive Prompt Builder - Sequencing Challenge</div>
-          <p style="margin: 0.5rem 0;"><strong>Instructions:</strong> The cards below are in random order! Copy each card into the assembly field in the correct sequence to create your complete prompt for Bob. This helps you understand the logical flow of requirements.</p>
-        </div>
-
-        <!-- 2-Column Grid for Cards -->
-        <div id="frontend-cards-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1.5rem;">
-          <!-- Cards will be randomized by JavaScript -->
-          
-          <!-- Card: Main Instruction -->
-          <div class="prompt-card frontend-card" data-order="1">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">Main Instruction</span>
-              <button class="copy-btn" onclick="copyToAssembly('frontend-card-1')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="frontend-card-1">Create a modern, responsive React-based frontend for the payment application in the payment-app-java17/src/main/resources/static directory with the following requirements:</pre>
+        <div class="prompt-card" style="margin-top: 1rem;">
+          <div class="prompt-card__header">
+            <span class="prompt-card__title">Detailed Frontend Creation Prompt</span>
+            <button class="copy-btn" data-copy-target="prompt-frontend">Copy</button>
           </div>
+          <pre class="prompt-body" id="prompt-frontend">Create a modern, responsive React-based frontend for the payment application in the payment-app-java17/src/main/resources/static directory with the following requirements:
 
-          <!-- Card: Technology Stack -->
-          <div class="prompt-card frontend-card" data-order="2">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">Technology Stack</span>
-              <button class="copy-btn" onclick="copyToAssembly('frontend-card-2')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="frontend-card-2">1. Technology Stack:
+1. Technology Stack:
    - React 18 (loaded via CDN - no build tools needed)
    - HTML5 with semantic markup
    - Modern CSS3 with gradient backgrounds and smooth animations
-   - Babel Standalone for JSX transformation</pre>
-          </div>
+   - Babel Standalone for JSX transformation
 
-          <!-- Card: File Structure -->
-          <div class="prompt-card frontend-card" data-order="3">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">File Structure</span>
-              <button class="copy-btn" onclick="copyToAssembly('frontend-card-3')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="frontend-card-3">2. File Structure (create in payment-app-java17/src/main/resources/static/):
+2. File Structure (create in payment-app-java17/src/main/resources/static/):
    ├── index.html
    ├── app.js (React components)
-   └── styles.css</pre>
-          </div>
+   └── styles.css
 
-          <!-- Card: React Components -->
-          <div class="prompt-card frontend-card" data-order="4">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">React Components to Implement</span>
-              <button class="copy-btn" onclick="copyToAssembly('frontend-card-4')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="frontend-card-4">3. React Components to Implement:
+3. React Components to Implement:
    - App (main container with state management)
    - PaymentForm (with card number formatting, validation, and test cards display)
-   - TransactionHistory (with capture/refund actions)</pre>
-          </div>
+   - TransactionHistory (with capture/refund actions)
 
-          <!-- Card: Features -->
-          <div class="prompt-card frontend-card" data-order="5">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">Features</span>
-              <button class="copy-btn" onclick="copyToAssembly('frontend-card-5')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="frontend-card-5">4. Features:
+4. Features:
    - Payment authorization with formatted card input (XXXX XXXX XXXX XXXX)
    - Expiry date formatting (MM/YY)
    - CVV validation (3-4 digits)
@@ -1724,68 +1497,30 @@ mvn spring-boot:run</code></pre>
    - Status badges (AUTHORIZED, CAPTURED, DECLINED, REFUNDED)
    - Success/error messages with auto-dismiss
    - Loading states and empty states
-   - Test card numbers display (Visa: 4263970000005262, MasterCard: 5425230000004415, Amex: 374101000000608)</pre>
-          </div>
+   - Test card numbers display (Visa: 4263970000005262, MasterCard: 5425230000004415, Amex: 374101000000608)
 
-          <!-- Card: Styling Requirements -->
-          <div class="prompt-card frontend-card" data-order="6">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">Styling Requirements</span>
-              <button class="copy-btn" onclick="copyToAssembly('frontend-card-6')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="frontend-card-6">5. Styling Requirements:
+5. Styling Requirements:
    - Purple gradient background (from #667eea to #764ba2)
    - White cards with rounded corners and shadows
    - Responsive design (mobile, tablet, desktop)
    - Smooth hover effects and transitions
    - Color-coded status badges
-   - Professional table layout for transactions</pre>
-          </div>
+   - Professional table layout for transactions
 
-          <!-- Card: API Integration -->
-          <div class="prompt-card frontend-card" data-order="7">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">API Integration</span>
-              <button class="copy-btn" onclick="copyToAssembly('frontend-card-7')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="frontend-card-7">6. API Integration:
+6. API Integration:
    - POST /api/payments/authorize (for payment authorization)
    - POST /api/payments/capture (for capturing authorized payments)
    - POST /api/payments/refund (for refunding captured payments)
-   - GET /api/payments/history (for transaction history)</pre>
-          </div>
+   - GET /api/payments/history (for transaction history)
 
-          <!-- Card: Code Quality -->
-          <div class="prompt-card frontend-card" data-order="8">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">Code Quality</span>
-              <button class="copy-btn" onclick="copyToAssembly('frontend-card-8')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="frontend-card-8">7. Code Quality:
+7. Code Quality:
    - Clean, well-structured React components
    - Proper state management with useState and useEffect
    - Input validation and error handling
    - Responsive design with media queries
-   - Accessible UI elements</pre>
-          </div>
+   - Accessible UI elements
 
-          <!-- Card: Final Instruction -->
-          <div class="prompt-card frontend-card" data-order="9">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">Final Instruction</span>
-              <button class="copy-btn" onclick="copyToAssembly('frontend-card-9')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="frontend-card-9">Create all three files (index.html, app.js, styles.css) in the payment-app-java17/src/main/resources/static directory.</pre>
-          </div>
-        </div>
-
-        <!-- Assembly Field -->
-        <div class="prompt-card" style="margin-top: 1.5rem; border: 2px solid #0f62fe;">
-          <div class="prompt-card__header" style="background: #0f62fe; color: white;">
-            <span class="prompt-card__title">✨ Assembled Prompt (Copy this to Bob)</span>
-            <button class="copy-btn" onclick="copyAssembledPrompt('frontend-assembly')" style="background: white; color: #0f62fe;">Copy Complete Prompt</button>
-          </div>
-          <textarea id="frontend-assembly" class="prompt-body" style="min-height: 300px; width: 100%; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 1rem; border: none; resize: vertical;" placeholder="Click 'Add to Assembly' on each card above to build your complete prompt here..."></textarea>
+Create all three files (index.html, app.js, styles.css) in the payment-app-java17/src/main/resources/static directory.</pre>
         </div>
 
         <div class="callout callout--info" style="margin-top: 1.5rem;">
@@ -1854,7 +1589,7 @@ function App() {
           </ul>
         </div>
 
-        <!-- Business Value 2.3
+        <!-- Business Value 2.3 -->
         <div class="business-value-section">
           <h4 class="business-value-title">Business Value</h4>
           <div class="business-value-grid">
@@ -1890,7 +1625,7 @@ function App() {
           <div class="business-value-summary">
             <strong>Impact:</strong> 85%+ reduction in frontend development time • Consistent design patterns • Improved accessibility • Faster time-to-market
           </div>
-        </div> -->
+        </div>
       </article>
 
       <!-- 2.4 LET BOB TEST END-TO-END -->
@@ -1914,134 +1649,55 @@ function App() {
           <p style="margin: 0.5rem 0 0; font-weight: 500;">Switch to <strong>Orchestrator mode</strong> so Bob can systematically plan, execute, and document the testing process.</p>
         </div>
 
-        <!-- Instruction: Assemble the test plan prompt from cards below -->
-        <div class="callout callout--tip" style="margin-top: 1.5rem;">
-          <div class="callout__label">📝 Interactive Prompt Builder - Sequencing Challenge</div>
-          <p style="margin: 0.5rem 0;"><strong>Instructions:</strong> The cards below are in random order! Copy each card into the assembly field in the correct sequence to create your complete test plan prompt for Bob. This helps you understand the logical flow of testing requirements.</p>
-        </div>
-
-        <!-- 2-Column Grid for Cards -->
-        <div id="test-cards-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1.5rem;">
-          <!-- Cards will be randomized by JavaScript -->
-          
-          <!-- Card: Main Instruction -->
-          <div class="prompt-card test-card" data-order="1">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">Main Instruction</span>
-              <button class="copy-btn" onclick="copyToAssembly('test-card-1')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="test-card-1">Create a comprehensive end-to-end test plan for the payment application and execute it step by step.
-
-The test plan should cover:</pre>
+        <div class="prompt-card" style="margin-top: 1.5rem;">
+          <div class="prompt-card__header">
+            <span class="prompt-card__title">Test Plan Creation Prompt</span>
+            <button class="copy-btn" data-copy-target="prompt-test-plan">Copy</button>
           </div>
+          <pre class="prompt-body" id="prompt-test-plan">Create a comprehensive end-to-end test plan for the payment application and execute it step by step.
 
-          <!-- Card: Do Not Make Changes -->
-          <div class="prompt-card test-card" data-order="2">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">Important Note</span>
-              <button class="copy-btn" onclick="copyToAssembly('test-card-2')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="test-card-2">Do not make any code changes yet.</pre>
-          </div>
+The test plan should cover:
 
-          <!-- Card: Functional Testing -->
-          <div class="prompt-card test-card" data-order="3">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">Functional Testing</span>
-              <button class="copy-btn" onclick="copyToAssembly('test-card-3')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="test-card-3">1. **Functional Testing**
+1. **Functional Testing**
    - Payment authorization flow
    - Payment capture flow
    - Payment refund flow
    - Transaction history retrieval
-   - Admin endpoints (health, metrics, cache)</pre>
-          </div>
+   - Admin endpoints (health, metrics, cache)
 
-          <!-- Card: Integration Testing -->
-          <div class="prompt-card test-card" data-order="4">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">Integration Testing</span>
-              <button class="copy-btn" onclick="copyToAssembly('test-card-4')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="test-card-4">2. **Integration Testing**
+2. **Integration Testing**
    - Frontend to backend communication
    - Database persistence verification
    - Cache behavior validation
-   - API response format verification</pre>
-          </div>
+   - API response format verification
 
-          <!-- Card: Error Handling -->
-          <div class="prompt-card test-card" data-order="5">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">Error Handling</span>
-              <button class="copy-btn" onclick="copyToAssembly('test-card-5')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="test-card-5">3. **Error Handling**
+3. **Error Handling**
    - Invalid payment data
    - Missing required fields
    - Duplicate transaction IDs
    - Network timeout scenarios
-   - Database connection failures</pre>
-          </div>
+   - Database connection failures
 
-          <!-- Card: Edge Cases -->
-          <div class="prompt-card test-card" data-order="6">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">Edge Cases</span>
-              <button class="copy-btn" onclick="copyToAssembly('test-card-6')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="test-card-6">4. **Edge Cases**
+4. **Edge Cases**
    - Concurrent payment requests
    - Large transaction amounts
    - Special characters in input fields
-   - Boundary value testing</pre>
-          </div>
+   - Boundary value testing
 
-          <!-- Card: Performance Validation -->
-          <div class="prompt-card test-card" data-order="7">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">Performance Validation</span>
-              <button class="copy-btn" onclick="copyToAssembly('test-card-7')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="test-card-7">5. **Performance Validation**
+5. **Performance Validation**
    - Response time measurements
    - Cache hit/miss ratios
    - Memory usage monitoring
-   - Concurrent user simulation</pre>
-          </div>
+   - Concurrent user simulation
 
-          <!-- Card: Test Execution Instructions -->
-          <div class="prompt-card test-card" data-order="8">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">Test Execution Instructions</span>
-              <button class="copy-btn" onclick="copyToAssembly('test-card-8')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="test-card-8">For each test:
+For each test:
 - Provide the test steps
 - Execute the test
 - Document the actual results
 - Compare with expected results
-- Note any issues or failures</pre>
-          </div>
+- Note any issues or failures
 
-          <!-- Card: Final Deliverable -->
-          <div class="prompt-card test-card" data-order="9">
-            <div class="prompt-card__header">
-              <span class="prompt-card__title">Final Deliverable</span>
-              <button class="copy-btn" onclick="copyToAssembly('test-card-9')">Add to Assembly</button>
-            </div>
-            <pre class="prompt-body" id="test-card-9">Create a detailed test report as: TestReport.md</pre>
-          </div>
-        </div>
-
-        <!-- Assembly Field -->
-        <div class="prompt-card" style="margin-top: 1.5rem; border: 2px solid #0f62fe;">
-          <div class="prompt-card__header" style="background: #0f62fe; color: white;">
-            <span class="prompt-card__title">✨ Assembled Test Plan Prompt (Copy this to Bob)</span>
-            <button class="copy-btn" onclick="copyAssembledPrompt('test-assembly')" style="background: white; color: #0f62fe;">Copy Complete Prompt</button>
-          </div>
-          <textarea id="test-assembly" class="prompt-body" style="min-height: 300px; width: 100%; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 1rem; border: none; resize: vertical;" placeholder="Click 'Add to Assembly' on each card above to build your complete test plan prompt here..."></textarea>
+Create a detailed test report as: TestReport.md</pre>
         </div>
 
         <div class="prompt-card" style="margin-top: 1.5rem;">
@@ -2085,7 +1741,7 @@ Update the TestReport.md with complete test results.</pre>
           <strong>Pro Tip:</strong> Bob can also generate automated test scripts (JUnit, Selenium, etc.) based on the test plan. Ask Bob to create automated tests if you want to integrate them into your CI/CD pipeline.
         </div>
 
-        <!-- Business Value 2.4
+        <!-- Business Value 2.4 -->
         <div class="business-value-section">
           <h4 class="business-value-title">Business Value</h4>
           <div class="business-value-grid">
@@ -2122,110 +1778,7 @@ Update the TestReport.md with complete test results.</pre>
             <strong>Impact:</strong> 90%+ reduction in testing time • Improved test coverage • Consistent quality • Faster defect detection • Better documentation
           </div>
         </div>
-      </article> -->
-
-      <!-- SECTION 03: BUSINESS VALUE -->
-      <section class="section" id="business-value">
-        <div class="section__header">
-          <h2>03. Business Value</h2>
-          <p class="section__subtitle">Quantifying the Impact of AI-Assisted Development</p>
-        </div>
-
-        <article class="subsection">
-          <div class="subsection__header">
-            <h3>Comprehensive Use Case Summary</h3>
-          </div>
-
-          <p style="margin-bottom: 2rem;">Now that we've explored how IBM Bob accelerates the entire software development lifecycle—from understanding legacy code to modernizing applications, creating frontends, and comprehensive testing—let's examine the measurable business impact across all use cases.</p>
-
-          <!-- Consolidated Business Value Grid -->
-          <div class="business-value-section">
-            <div class="business-value-grid">
-              <div class="business-value-card business-value-card--traditional">
-                <div class="business-value-card__header">
-                  <span class="business-value-icon"></span>
-                  <h5>Traditional Development Approach</h5>
-                </div>
-                <ul class="business-value-list">
-                  <li><strong>Code Understanding:</strong> Days to weeks for unfamiliar codebases</li>
-                  <li><strong>Documentation:</strong> Hours to days per service, often outdated</li>
-                  <li><strong>Modernization:</strong> Weeks to months per service with high risk</li>
-                  <li><strong>Frontend Development:</strong> Days to weeks for complete interfaces</li>
-                  <li><strong>Testing:</strong> Days to weeks for comprehensive test coverage</li>
-                  <li><strong>Common Risks:</strong> Incomplete understanding, breaking changes, inconsistent quality, missed edge cases</li>
-                </ul>
-              </div>
-              <div class="business-value-card business-value-card--bob">
-                <div class="business-value-card__header">
-                  <span class="business-value-icon"></span>
-                  <h5>With IBM Bob AI-Assisted Development</h5>
-                </div>
-                <ul class="business-value-list">
-                  <li><strong>Code Understanding:</strong> Minutes to hours with complete context</li>
-                  <li><strong>Documentation:</strong> Minutes per service, always current</li>
-                  <li><strong>Modernization:</strong> Hours to days with validated paths</li>
-                  <li><strong>Frontend Development:</strong> Minutes to hours with best practices</li>
-                  <li><strong>Testing:</strong> Hours for comprehensive coverage</li>
-                  <li><strong>Key Benefits:</strong> Faster delivery, reduced risk, consistent quality, improved team productivity</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Key Metrics -->
-            <div class="business-value-summary" style="margin-top: 2rem;">
-              <h4 style="margin-bottom: 1rem; color: var(--text);">Measurable Impact Across Use Cases</h4>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                <div style="padding: 1rem; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 8px;">
-                  <div style="font-size: 32px; font-weight: 700; color: #1976d2;">90%+</div>
-                  <div style="font-size: 14px; margin-top: 0.5rem;">Reduction in onboarding time<sup>[1]</sup></div>
-                </div>
-                <div style="padding: 1rem; background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-radius: 8px;">
-                  <div style="font-size: 32px; font-weight: 700; color: #7b1fa2;">95%+</div>
-                  <div style="font-size: 14px; margin-top: 0.5rem;">Reduction in documentation time<sup>[2]</sup></div>
-                </div>
-                <div style="padding: 1rem; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-radius: 8px;">
-                  <div style="font-size: 32px; font-weight: 700; color: #388e3c;">90%+</div>
-                  <div style="font-size: 14px; margin-top: 0.5rem;">Reduction in modernization time<sup>[3]</sup></div>
-                </div>
-                <div style="padding: 1rem; background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-radius: 8px;">
-                  <div style="font-size: 32px; font-weight: 700; color: #f57c00;">85%+</div>
-                  <div style="font-size: 14px; margin-top: 0.5rem;">Reduction in frontend development time<sup>[4]</sup></div>
-                </div>
-                <div style="padding: 1rem; background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-radius: 8px;">
-                  <div style="font-size: 32px; font-weight: 700; color: #c2185b;">90%+</div>
-                  <div style="font-size: 14px; margin-top: 0.5rem;">Reduction in testing time<sup>[5]</sup></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Scale Impact -->
-            <div class="callout callout--success" style="margin-top: 2rem;">
-              <div class="callout__label">Scale Impact</div>
-              <h4 style="margin-top: 0.5rem; margin-bottom: 0.75rem; color: var(--text);"><strong>Enterprise-Scale Transformation</strong></h4>
-              <p style="margin-bottom: 0.75rem;">One service modernized in minutes. Now imagine applying this across 200+ services in your enterprise portfolio:</p>
-              <ul style="margin-left: 1.5rem;">
-                <li><strong>Accelerated technical debt reduction</strong> across entire application landscape</li>
-                <li><strong>Consistent quality standards</strong> applied systematically</li>
-                <li><strong>Faster time-to-market</strong> for new features and improvements</li>
-                <li><strong>Improved team productivity</strong> and developer satisfaction</li>
-                <li><strong>Lower risk</strong> through validated, AI-assisted approaches</li>
-              </ul>
-            </div>
-
-            <!-- References -->
-            <div style="margin-top: 2rem; padding: 1.5rem; background: var(--card-bg); border-left: 4px solid var(--primary); border-radius: 4px;">
-              <h4 style="margin-bottom: 1rem; color: var(--text);">References</h4>
-              <ol style="margin-left: 1.5rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
-                <li>Based on typical developer onboarding timelines: Traditional (2-4 weeks) vs. AI-assisted (2-4 days) for understanding unfamiliar codebases</li>
-                <li>Based on documentation creation time: Traditional (4-8 hours per service) vs. AI-assisted (10-30 minutes per service)</li>
-                <li>Based on Java modernization projects: Traditional (2-4 weeks per service) vs. AI-assisted (4-8 hours per service) including planning, execution, and validation</li>
-                <li>Based on frontend development cycles: Traditional (3-5 days for complete interface) vs. AI-assisted (2-4 hours with production-ready code)</li>
-                <li>Based on comprehensive testing efforts: Traditional (3-5 days for test plan creation and execution) vs. AI-assisted (4-8 hours for automated test generation and execution)</li>
-              </ol>
-            </div>
-          </div>
-        </article>
-      </section>
+      </article>
 
     </main>
   </div>
@@ -2246,251 +1799,6 @@ Update the TestReport.md with complete test results.</pre>
           }, 2000);
         });
       });
-    });
-
-    // ── INTERACTIVE FILL-IN-THE-BLANK FOR STEP 1 ──
-    function checkPlanCompletion() {
-      const blanks = document.querySelectorAll('.prompt-blank');
-      let allFilled = true;
-      
-      blanks.forEach(blank => {
-        const value = blank.value.trim().toLowerCase();
-        const answer = blank.getAttribute('data-answer').toLowerCase();
-        
-        if (value === '') {
-          allFilled = false;
-        } else if (value === answer) {
-          blank.style.borderBottom = '2px solid #24a148';
-          blank.style.background = '#e8f5e9';
-        } else {
-          blank.style.borderBottom = '2px solid #da1e28';
-          blank.style.background = '#fff1f1';
-          allFilled = false;
-        }
-      });
-      
-      const copyBtn = document.getElementById('copy-plan-btn');
-      if (allFilled && copyBtn) {
-        copyBtn.disabled = false;
-        copyBtn.style.opacity = '1';
-        copyBtn.style.cursor = 'pointer';
-        copyBtn.textContent = 'Copy';
-      }
-    }
-
-    // Add event listeners to all prompt blanks
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.prompt-blank').forEach(blank => {
-        blank.addEventListener('input', checkPlanCompletion);
-        blank.addEventListener('blur', checkPlanCompletion);
-      });
-    });
-
-    // ── INTERACTIVE FILL-IN-THE-BLANK FOR STEP 2 ──
-    let currentBlankTarget = null;
-
-    function fillBlank(button, word) {
-      if (!currentBlankTarget) {
-        // Find first empty blank
-        const blanks = document.querySelectorAll('.exec-blank');
-        for (let blank of blanks) {
-          if (blank.textContent.trim().startsWith('_')) {
-            currentBlankTarget = blank;
-            break;
-          }
-        }
-      }
-      
-      if (currentBlankTarget) {
-        currentBlankTarget.textContent = word;
-        currentBlankTarget.style.background = '#e8f5e9';
-        currentBlankTarget.style.borderBottom = '2px solid #24a148';
-        
-        // Disable the button
-        button.disabled = true;
-        button.style.opacity = '0.5';
-        button.style.cursor = 'not-allowed';
-        button.style.background = '#e0e0e0';
-        
-        currentBlankTarget = null;
-        checkExecCompletion();
-      }
-    }
-
-    function clearBlank(blank) {
-      const answer = blank.getAttribute('data-answer');
-      const currentText = blank.textContent.trim();
-      
-      if (!currentText.startsWith('_')) {
-        // Re-enable the corresponding word bank button
-        const buttons = document.querySelectorAll('.word-bank-item');
-        buttons.forEach(btn => {
-          if (btn.textContent === currentText) {
-            btn.disabled = false;
-            btn.style.opacity = '1';
-            btn.style.cursor = 'pointer';
-            btn.style.background = 'white';
-            btn.style.color = 'inherit'; // Fix: Reset text color to default
-          }
-        });
-        
-        // Reset blank
-        const underscores = answer.length > 10 ? '_'.repeat(10) : '_'.repeat(answer.length);
-        blank.textContent = underscores;
-        blank.style.background = '#f0f7ff';
-        blank.style.borderBottom = '2px solid #0f62fe';
-        
-        checkExecCompletion();
-      }
-    }
-
-    function checkExecCompletion() {
-      const blanks = document.querySelectorAll('.exec-blank');
-      let allFilled = true;
-      
-      blanks.forEach(blank => {
-        const text = blank.textContent.trim();
-        if (text.startsWith('_')) {
-          allFilled = false;
-        }
-      });
-      
-      const copyBtn = document.getElementById('copy-exec-btn');
-      if (allFilled && copyBtn) {
-        copyBtn.disabled = false;
-        copyBtn.style.opacity = '1';
-        copyBtn.style.cursor = 'pointer';
-        copyBtn.textContent = 'Copy';
-      }
-    }
-
-    // ── JAVA SHOWCASE REVEAL FUNCTIONALITY ──
-    // Enable reveal button when user types in Example 1
-    document.addEventListener('DOMContentLoaded', () => {
-      const example1Input = document.getElementById('example1-input');
-      const revealBtn1 = document.getElementById('reveal-btn-1');
-      
-      if (example1Input && revealBtn1) {
-        example1Input.addEventListener('input', () => {
-          if (example1Input.value.trim().length > 10) {
-            revealBtn1.style.display = 'block';
-          }
-        });
-      }
-
-      const example2Input = document.getElementById('example2-input');
-      const revealBtn2 = document.getElementById('reveal-btn-2');
-      
-      if (example2Input && revealBtn2) {
-        example2Input.addEventListener('input', () => {
-          if (example2Input.value.trim().length > 10) {
-            revealBtn2.style.display = 'block';
-          }
-        });
-      }
-    });
-
-    function revealExample1() {
-      const answerSection = document.getElementById('example1-answer');
-      const revealBtn = document.getElementById('reveal-btn-1');
-      
-      if (answerSection) {
-        answerSection.style.display = 'block';
-        revealBtn.style.display = 'none';
-        
-        // Smooth scroll to the answer
-        answerSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-    }
-
-    function revealExample2() {
-      const answerSection = document.getElementById('example2-answer');
-      const revealBtn = document.getElementById('reveal-btn-2');
-      
-      if (answerSection) {
-        answerSection.style.display = 'block';
-        revealBtn.style.display = 'none';
-        
-        // Smooth scroll to the answer
-        answerSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-    }
-
-    // ── PROMPT ASSEMBLY FUNCTIONALITY ──
-    function copyToAssembly(cardId) {
-      const card = document.getElementById(cardId);
-      const assemblyField = document.getElementById('frontend-assembly') || document.getElementById('test-assembly');
-      
-      if (card && assemblyField) {
-        const currentText = assemblyField.value;
-        const newText = card.textContent.trim();
-        
-        // Add the new text with proper spacing
-        if (currentText) {
-          assemblyField.value = currentText + '\n\n' + newText;
-        } else {
-          assemblyField.value = newText;
-        }
-        
-        // Scroll to bottom of textarea
-        assemblyField.scrollTop = assemblyField.scrollHeight;
-        
-        // Visual feedback
-        assemblyField.style.background = '#e8f5e9';
-        setTimeout(() => {
-          assemblyField.style.background = 'white';
-        }, 300);
-      }
-    }
-
-    function copyAssembledPrompt(assemblyId) {
-      const assemblyField = document.getElementById(assemblyId);
-      
-      if (assemblyField && assemblyField.value.trim()) {
-        navigator.clipboard.writeText(assemblyField.value).then(() => {
-          // Find the copy button and update it
-          const copyBtn = assemblyField.parentElement.querySelector('.copy-btn');
-          if (copyBtn) {
-            const originalText = copyBtn.textContent;
-            copyBtn.textContent = 'Copied!';
-            copyBtn.style.background = '#24a148';
-            setTimeout(() => {
-              copyBtn.textContent = originalText;
-              copyBtn.style.background = 'white';
-            }, 2000);
-          }
-        });
-      } else {
-        alert('Please add cards to the assembly field first!');
-      }
-    }
-
-    // ── CARD RANDOMIZATION ──
-    function shuffleArray(array) {
-      const shuffled = [...array];
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-      }
-      return shuffled;
-    }
-
-    function randomizeCards(containerSelector, cardSelector) {
-      const container = document.querySelector(containerSelector);
-      if (!container) return;
-      
-      const cards = Array.from(container.querySelectorAll(cardSelector));
-      const shuffledCards = shuffleArray(cards);
-      
-      // Clear container and re-append in random order
-      container.innerHTML = '';
-      shuffledCards.forEach(card => container.appendChild(card));
-    }
-
-    // Randomize cards on page load
-    document.addEventListener('DOMContentLoaded', function() {
-      randomizeCards('#frontend-cards-container', '.frontend-card');
-      randomizeCards('#test-cards-container', '.test-card');
     });
 
     // ── MOBILE SIDEBAR TOGGLE ──
