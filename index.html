@@ -527,6 +527,10 @@
         <a class="sidebar__sublink" href="#java-migration">2.2 Java 11 to Java 17 Modernization</a>
         <a class="sidebar__sublink" href="#create-frontend">2.3 Create Frontend to Showcase</a>
         <a class="sidebar__sublink" href="#end-to-end-testing">2.4 Let Bob Test End-to-End</a>
+        <a class="sidebar__link" href="#business-value">
+          <span class="sidebar__num">03</span>
+          <span>Business Value</span>
+        </a>
       </nav>
     </aside>
 
@@ -1072,7 +1076,7 @@ mvn -version</pre>
 The plan should include:
 1. Summary of changes required (<input type="text" class="prompt-blank" data-answer="dependencies" placeholder="________" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 120px;">, <input type="text" class="prompt-blank" data-answer="APIs" placeholder="____" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 60px;">, syntax, <input type="text" class="prompt-blank" data-answer="config" placeholder="______" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 80px;">)
 2. List of <input type="text" class="prompt-blank" data-answer="deprecated" placeholder="__________" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 120px;"> or removed APIs that need replacing
-3. New Java 17 features that can improve the codebase (<input type="text" class="prompt-blank" data-answer="records" placeholder="_______" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 90px;">, sealed classes, <input type="text" class="prompt-blank" data-answer="text blocks" placeholder="_____ ______" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 120px;">, pattern matching)
+3. New Java 17 features that can improve the codebase (<input type="text" class="prompt-blank" data-answer="records" placeholder="_______" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 90px;">, sealed classes, <input type="text" class="prompt-blank" data-answer="text blocks" placeholder="___________" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 120px;">, pattern matching)
 4. Updated <input type="text" class="prompt-blank" data-answer="pom.xml" placeholder="_______" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 90px;"> changes required (Java version, Spring Boot compatibility)
 5. Estimated <input type="text" class="prompt-blank" data-answer="effort" placeholder="______" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 80px;"> and risk for each change
 6. Recommended order of changes to minimize <input type="text" class="prompt-blank" data-answer="risk" placeholder="____" style="border: none; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; font-family: inherit; width: 60px;">
@@ -1127,16 +1131,16 @@ Apply all changes identified in the plan:
 2. Replace any deprecated or removed <span class="exec-blank" data-answer="APIs" style="display: inline-block; min-width: 60px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">____</span> with Java 17 equivalents
 3. Apply Java 17 features where they improve the code:
    - <span class="exec-blank" data-answer="Records" style="display: inline-block; min-width: 80px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">_______</span> for immutable model classes
-   - <span class="exec-blank" data-answer="Text blocks" style="display: inline-block; min-width: 100px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">____ ______</span> for <span class="exec-blank" data-answer="multi-line" style="display: inline-block; min-width: 90px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">_____-____</span> strings
+   - <span class="exec-blank" data-answer="Text blocks" style="display: inline-block; min-width: 100px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">____ ______</span> for <span class="exec-blank" data-answer="multi-line" style="display: inline-block; min-width: 90px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">__________</span> strings
    - Pattern matching for instanceof checks
    - Sealed classes where appropriate
 4. Remove <span class="exec-blank" data-answer="Lombok" style="display: inline-block; min-width: 80px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">______</span> if present — replace with Java records or explicit methods
-5. Verify the application still compiles and runs with: <span class="exec-blank" data-answer="mvn spring-boot:run" style="display: inline-block; min-width: 150px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">___ ______-____:___</span>
+5. Verify the application still compiles and runs with: <span class="exec-blank" data-answer="mvn spring-boot:run" style="display: inline-block; min-width: 150px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">________</span>
 
 Output the modernized application in a new folder alongside the original:
 
 <span class="exec-blank" data-answer="payment-app" style="display: inline-block; min-width: 120px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">___________</span>/          ← original Java 11 (do not modify)
-<span class="exec-blank" data-answer="payment-app-java17" style="display: inline-block; min-width: 180px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">___________-______</span>/   ← modernized Java 17
+<span class="exec-blank" data-answer="payment-app-java17" style="display: inline-block; min-width: 180px; border-bottom: 2px solid #0f62fe; background: #f0f7ff; padding: 2px 8px; cursor: pointer;" onclick="clearBlank(this)">__________________</span>/   ← modernized Java 17
 ├── src/
 │   └── main/
 │       ├── java/com/demo/payment/
@@ -1677,7 +1681,7 @@ mvn spring-boot:run</code></pre>
               <span class="prompt-card__title">Technology Stack</span>
               <button class="copy-btn" onclick="copyToAssembly('frontend-card-2')">Add to Assembly</button>
             </div>
-            <pre class="prompt-body" id="frontend-card-2">1. Technology Stack:
+            <pre class="prompt-body" id="frontend-card-2">Technology Stack:
    - React 18 (loaded via CDN - no build tools needed)
    - HTML5 with semantic markup
    - Modern CSS3 with gradient backgrounds and smooth animations
@@ -1690,7 +1694,7 @@ mvn spring-boot:run</code></pre>
               <span class="prompt-card__title">File Structure</span>
               <button class="copy-btn" onclick="copyToAssembly('frontend-card-3')">Add to Assembly</button>
             </div>
-            <pre class="prompt-body" id="frontend-card-3">2. File Structure (create in payment-app-java17/src/main/resources/static/):
+            <pre class="prompt-body" id="frontend-card-3">File Structure (create in payment-app-java17/src/main/resources/static/):
    ├── index.html
    ├── app.js (React components)
    └── styles.css</pre>
@@ -1702,7 +1706,7 @@ mvn spring-boot:run</code></pre>
               <span class="prompt-card__title">React Components to Implement</span>
               <button class="copy-btn" onclick="copyToAssembly('frontend-card-4')">Add to Assembly</button>
             </div>
-            <pre class="prompt-body" id="frontend-card-4">3. React Components to Implement:
+            <pre class="prompt-body" id="frontend-card-4">React Components to Implement:
    - App (main container with state management)
    - PaymentForm (with card number formatting, validation, and test cards display)
    - TransactionHistory (with capture/refund actions)</pre>
@@ -1714,7 +1718,7 @@ mvn spring-boot:run</code></pre>
               <span class="prompt-card__title">Features</span>
               <button class="copy-btn" onclick="copyToAssembly('frontend-card-5')">Add to Assembly</button>
             </div>
-            <pre class="prompt-body" id="frontend-card-5">4. Features:
+            <pre class="prompt-body" id="frontend-card-5">Features:
    - Payment authorization with formatted card input (XXXX XXXX XXXX XXXX)
    - Expiry date formatting (MM/YY)
    - CVV validation (3-4 digits)
@@ -1733,7 +1737,7 @@ mvn spring-boot:run</code></pre>
               <span class="prompt-card__title">Styling Requirements</span>
               <button class="copy-btn" onclick="copyToAssembly('frontend-card-6')">Add to Assembly</button>
             </div>
-            <pre class="prompt-body" id="frontend-card-6">5. Styling Requirements:
+            <pre class="prompt-body" id="frontend-card-6">Styling Requirements:
    - Purple gradient background (from #667eea to #764ba2)
    - White cards with rounded corners and shadows
    - Responsive design (mobile, tablet, desktop)
@@ -1748,7 +1752,7 @@ mvn spring-boot:run</code></pre>
               <span class="prompt-card__title">API Integration</span>
               <button class="copy-btn" onclick="copyToAssembly('frontend-card-7')">Add to Assembly</button>
             </div>
-            <pre class="prompt-body" id="frontend-card-7">6. API Integration:
+            <pre class="prompt-body" id="frontend-card-7">API Integration:
    - POST /api/payments/authorize (for payment authorization)
    - POST /api/payments/capture (for capturing authorized payments)
    - POST /api/payments/refund (for refunding captured payments)
@@ -1761,7 +1765,7 @@ mvn spring-boot:run</code></pre>
               <span class="prompt-card__title">Code Quality</span>
               <button class="copy-btn" onclick="copyToAssembly('frontend-card-8')">Add to Assembly</button>
             </div>
-            <pre class="prompt-body" id="frontend-card-8">7. Code Quality:
+            <pre class="prompt-body" id="frontend-card-8">Code Quality:
    - Clean, well-structured React components
    - Proper state management with useState and useEffect
    - Input validation and error handling
@@ -1950,7 +1954,7 @@ The test plan should cover:</pre>
               <span class="prompt-card__title">Functional Testing</span>
               <button class="copy-btn" onclick="copyToAssembly('test-card-3')">Add to Assembly</button>
             </div>
-            <pre class="prompt-body" id="test-card-3">1. **Functional Testing**
+            <pre class="prompt-body" id="test-card-3"> **Functional Testing**
    - Payment authorization flow
    - Payment capture flow
    - Payment refund flow
@@ -1964,7 +1968,7 @@ The test plan should cover:</pre>
               <span class="prompt-card__title">Integration Testing</span>
               <button class="copy-btn" onclick="copyToAssembly('test-card-4')">Add to Assembly</button>
             </div>
-            <pre class="prompt-body" id="test-card-4">2. **Integration Testing**
+            <pre class="prompt-body" id="test-card-4">**Integration Testing**
    - Frontend to backend communication
    - Database persistence verification
    - Cache behavior validation
@@ -1977,7 +1981,7 @@ The test plan should cover:</pre>
               <span class="prompt-card__title">Error Handling</span>
               <button class="copy-btn" onclick="copyToAssembly('test-card-5')">Add to Assembly</button>
             </div>
-            <pre class="prompt-body" id="test-card-5">3. **Error Handling**
+            <pre class="prompt-body" id="test-card-5"> **Error Handling**
    - Invalid payment data
    - Missing required fields
    - Duplicate transaction IDs
@@ -1991,7 +1995,7 @@ The test plan should cover:</pre>
               <span class="prompt-card__title">Edge Cases</span>
               <button class="copy-btn" onclick="copyToAssembly('test-card-6')">Add to Assembly</button>
             </div>
-            <pre class="prompt-body" id="test-card-6">4. **Edge Cases**
+            <pre class="prompt-body" id="test-card-6"> **Edge Cases**
    - Concurrent payment requests
    - Large transaction amounts
    - Special characters in input fields
@@ -2004,7 +2008,7 @@ The test plan should cover:</pre>
               <span class="prompt-card__title">Performance Validation</span>
               <button class="copy-btn" onclick="copyToAssembly('test-card-7')">Add to Assembly</button>
             </div>
-            <pre class="prompt-body" id="test-card-7">5. **Performance Validation**
+            <pre class="prompt-body" id="test-card-7"> **Performance Validation**
    - Response time measurements
    - Cache hit/miss ratios
    - Memory usage monitoring
