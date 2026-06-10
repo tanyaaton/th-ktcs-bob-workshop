@@ -2423,7 +2423,17 @@ Update the TestReport.md with complete test results.</pre>
     // ── PROMPT ASSEMBLY FUNCTIONALITY ──
     function copyToAssembly(cardId) {
       const card = document.getElementById(cardId);
-      const assemblyField = document.getElementById('frontend-assembly') || document.getElementById('test-assembly');
+      
+      // Determine which assembly field to use based on card ID prefix
+      let assemblyField;
+      if (cardId.startsWith('test-card-')) {
+        assemblyField = document.getElementById('test-assembly');
+      } else if (cardId.startsWith('frontend-card-')) {
+        assemblyField = document.getElementById('frontend-assembly');
+      } else {
+        // Fallback to try both
+        assemblyField = document.getElementById('frontend-assembly') || document.getElementById('test-assembly');
+      }
       
       if (card && assemblyField) {
         const currentText = assemblyField.value;
